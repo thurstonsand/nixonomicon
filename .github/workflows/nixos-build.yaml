@@ -37,6 +37,13 @@ jobs:
       - name: Extract portable configs
         id: extract-configs
         run: |
+          # Temporarily disable git-crypt filter to allow reading files
+          # This only affects encrypted files and won't impact our ability to use git commands
+          # on the unencrypted portable config files we're creating
+          git config --unset filter.git-crypt.clean || true
+          git config --unset filter.git-crypt.smudge || true
+          git config --unset filter.git-crypt.required || true
+
           # Create directory structure
           mkdir -p nas/home/git
 
