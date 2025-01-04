@@ -32,14 +32,16 @@ jobs:
       - name: Install git-crypt
         run: nix profile install nixpkgs#git-crypt
 
-      - name: Setup git-crypt
-        run: |
-          echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 -d > git-crypt.key
-          git-crypt unlock git-crypt.key
-          rm git-crypt.key
-          git-crypt status  # Verify unlock was successful
-        post: |
-          rm -rf .git/git-crypt  # Clean up git-crypt files from repository
+      - name: Unlock encrypted files
+        uses: gacts/run-and-post-run@v1
+        with:
+          run: |
+            echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 -d > git-crypt.key
+            git-crypt unlock git-crypt.key
+            rm git-crypt.key
+            git-crypt status  # Verify unlock was successful
+          post: |
+            rm -rf .git/git-crypt  # Clean up git-crypt files from repository
 
       - name: Build NixOS configuration
         run: nix build .#nixosConfigurations.knownapps.config.system.build.toplevel
