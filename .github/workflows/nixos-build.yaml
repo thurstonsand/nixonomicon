@@ -62,7 +62,12 @@ jobs:
         if: github.event_name == 'pull_request' && steps.extract-configs.outputs.changes == 'true'
         run: |
           echo "The following changes would be made to portable configs:"
-          git diff nas/home
+          # First show any new files
+          git status --porcelain nas/home
+          echo "---"
+          # Then show content differences
+          git add nas/home
+          git diff --cached nas/home
 
       - name: Create Pull Request
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.extract-configs.outputs.changes == 'true'
