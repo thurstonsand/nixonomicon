@@ -35,7 +35,7 @@ jobs:
           key_encoded: ${{ secrets.GIT_CRYPT_KEY_BASE64 }}
 
       - name: Install git-crypt
-        run: nix-env -iA nixpkgs.git-crypt
+        run: nix profile install nixpkgs#git-crypt
 
       - name: Build NixOS configuration
         run: nix build .#nixosConfigurations.knownapps.config.system.build.toplevel
