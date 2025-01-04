@@ -14,7 +14,7 @@
     if [[ "$CURRENT_IMAGE_ID" != "$NEW_IMAGE_ID" ]]; then
         echo "Updating $CONTAINER_NAME container to $NEW_IMAGE_ID"
         ${pkgs.docker}/bin/docker rm -f $CONTAINER_NAME
-        sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /home/thurstonsand/nixos
+        sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /home/thurstonsand/nixonomicon
     fi
   '';
 in {

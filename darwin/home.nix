@@ -36,7 +36,7 @@ in {
     zsh.shellAliases = {
       bd = "brew desc";
       bh = "brew home";
-      switch = "darwin-rebuild switch --flake /Users/thurstonsand/Develop/nixos";
+      switch = "darwin-rebuild switch --flake /Users/thurstonsand/Develop/nixonomicon";
     };
   };
 }

@@ -9,11 +9,11 @@
 3. Download the git repo:
    ```
    mkdir -p ~/Develop
-   git clone git@github.com:thurstonsand/nixos.git ~/Develop
+   git clone git@github.com:thurstonsand/nixonomicon.git ~/Develop
    ```
 4. Run:
    ```
-   nix run nix-darwin -- switch --flake ~/Develop/nixos
+   nix run nix-darwin -- switch --flake ~/Develop/nixonomicon
    ```
 5. [Setup 1Password CLI](https://developer.1password.com/docs/cli/get-started) for git keys (start from step 2)
 6. You can use `switch` from now on to upgrade
