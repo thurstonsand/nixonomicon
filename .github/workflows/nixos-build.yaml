@@ -1,56 +1,72 @@
-name: NixOS Build
+name: "Build NixOS Configuration"
+
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]
     paths:
-      - 'nas/**'
+      - 'nas/system/**'
       - 'common/**'
       - 'flake.nix'
       - 'flake.lock'
       - '.github/workflows/nixos-build.yaml'
   pull_request:
-    branches: [main]
+    branches: [ "main" ]
     paths:
-      - 'nas/**'
+      - 'nas/system/**'
       - 'common/**'
       - 'flake.nix'
       - 'flake.lock'
       - '.github/workflows/nixos-build.yaml'
 
 jobs:
-  build:
+  build-nixos:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Enable Nix flakes and cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Setup git-crypt
         uses: amplium/git-crypt-action@master
         with:
           key_encoded: ${{ secrets.GIT_CRYPT_KEY_BASE64 }}
 
-      - name: Install nixos-rebuild
-        run: |
-          # Install nixos-rebuild from the same nixpkgs version as specified in flake.lock
-          nix profile install nixpkgs#nixos-rebuild
-
       - name: Build NixOS configuration
+        run: nix build .#nixosConfigurations.knownapps.config.system.build.toplevel
+
+      - name: Extract portable configs
+        id: extract-configs
         run: |
-          # Build the knownapps configuration
-          nixos-rebuild build --flake .#knownapps
-          
-          # Verify the build succeeded
-          if [ -e result ]; then
-            echo "✅ Build successful"
-            # Print the store path for debugging
-            readlink -f result
+          # Create directory structure
+          mkdir -p nas/home/git
+
+          # Extract config files and remove gpg program line
+          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/config".text' | grep -v "program = " > nas/home/git/config
+          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/ignore".text' > nas/home/git/ignore
+
+          # Check if there are any changes
+          if [[ -n "$(git status --porcelain nas/home)" ]]; then
+            echo "changes=true" >> $GITHUB_OUTPUT
           else
-            echo "❌ Build failed - no result symlink found"
-            exit 1
+            echo "changes=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Show potential changes
+        if: github.event_name == 'pull_request' && steps.extract-configs.outputs.changes == 'true'
+        run: |
+          echo "The following changes would be made to portable configs:"
+          git diff nas/home
+
+      - name: Create Pull Request
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.extract-configs.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: update portable configurations"
+          title: "Update portable configurations"
+          body: |
+            This PR updates the portable configuration files in `nas/home/`.
+
+            These changes were automatically generated from the latest NixOS configuration.
+          branch: update-portable-configs
+          delete-branch: true
+          base: main
