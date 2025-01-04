@@ -21,6 +21,7 @@
       "arc"
       "beeper"
       "chatgpt"
+      "choosy"
       "contexts"
       "discord"
       "fantastical"

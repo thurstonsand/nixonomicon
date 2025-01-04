@@ -1,12 +1,5 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{pkgs, ...}:
 with pkgs; let
-  macvlan-name = "homenet";
-  vlans = import ../vlans.nix;
-
   # iot vlan
   zwave-js-ui-ip = "192.168.3.225";
   mosquitto-ip = "192.168.3.226";

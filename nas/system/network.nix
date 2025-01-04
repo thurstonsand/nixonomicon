@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Set hostname.
   networking.hostName = "knownapps";
 
@@ -13,7 +9,7 @@
     "net.core.wmem_max" = 2500000;
   };
 
-  systemd.services = with lib; let
+  systemd.services = let
     vlans = import ../vlans.nix;
     # config that creates systemd service that calls ip link for a given vlan
     create-ip-link = {
