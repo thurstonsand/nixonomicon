@@ -1,0 +1,35 @@
+[color]
+	ui = "auto"
+
+[commit]
+	gpgSign = true
+
+[credential]
+	helper = "/usr/local/share/gcm-core/git-credential-manager"
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[gpg]
+	format = "ssh"
+
+[init]
+	defaultBranch = "main"
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+	default = "simple"
+
+[tag]
+	gpgSign = true
+
+[user]
+	email = "thurstonsand@gmail.com"
+	name = "Thurston Sandberg"
+	signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6GpY+hdZp60Fbnk9B03sntiJRx7OgLwutV5vJpV6P+"
