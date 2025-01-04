@@ -34,19 +34,15 @@ jobs:
         with:
           key_encoded: ${{ secrets.GIT_CRYPT_KEY_BASE64 }}
 
+      - name: Install git-crypt
+        run: nix-env -iA nixpkgs.git-crypt
+
       - name: Build NixOS configuration
         run: nix build .#nixosConfigurations.knownapps.config.system.build.toplevel
 
       - name: Extract portable configs
         id: extract-configs
         run: |
-          # Temporarily disable git-crypt filter to allow reading files
-          # This only affects encrypted files and won't impact our ability to use git commands
-          # on the unencrypted portable config files we're creating
-          git config --unset filter.git-crypt.clean || true
-          git config --unset filter.git-crypt.smudge || true
-          git config --unset filter.git-crypt.required || true
-
           # Create directory structure
           mkdir -p nas/home/git
 
@@ -74,7 +70,7 @@ jobs:
 
       - name: Create Pull Request
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.extract-configs.outputs.changes == 'true'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
           sign-commits: true
           commit-message: "chore: update portable configurations"
