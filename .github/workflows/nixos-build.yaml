@@ -33,15 +33,11 @@ jobs:
         run: nix profile install nixpkgs#git-crypt
 
       - name: Unlock encrypted files
-        uses: gacts/run-and-post-run@v1
-        with:
-          run: |
-            echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 -d > git-crypt.key
-            git-crypt unlock git-crypt.key
-            rm git-crypt.key
-            git-crypt status  # Verify unlock was successful
-          post: |
-            rm -rf .git/git-crypt  # Clean up git-crypt files from repository
+        run: |
+          echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 -d > git-crypt.key
+          git-crypt unlock git-crypt.key
+          rm git-crypt.key
+          git-crypt status
 
       - name: Build NixOS configuration
         run: nix build .#nixosConfigurations.knownapps.config.system.build.toplevel
@@ -88,3 +84,7 @@ jobs:
           branch: update-portable-configs
           delete-branch: true
           base: main
+
+      - name: Cleanup git-crypt
+        if: always()
+        run: rm -rf .git/git-crypt
