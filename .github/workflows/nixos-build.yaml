@@ -21,6 +21,9 @@ on:
 jobs:
   build-nixos:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/nix-installer-action@main
@@ -73,6 +76,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.extract-configs.outputs.changes == 'true'
         uses: peter-evans/create-pull-request@v5
         with:
+          sign-commits: true
           commit-message: "chore: update portable configurations"
           title: "Update portable configurations"
           body: |
