@@ -127,17 +127,16 @@
       }: {
         packages.default = home-manager.defaultPackage."${system}";
         formatter = pkgs.alejandra;
-        devShells.default = with pkgs;
-          mkShell {
-            shellHook = ''
-              ${config.pre-commit.installationScript}
-            '';
-            nativeBuildInputs = with pkgs.buildPackages; [
-              alejandra
-              rustc
-              cargo
-            ];
-          };
+        devShells.default = pkgs.mkShell {
+          shellHook = ''
+            ${config.pre-commit.installationScript}
+          '';
+          nativeBuildInputs = with pkgs.buildPackages; [
+            alejandra
+            rustc
+            cargo
+          ];
+        };
         pre-commit = {
           check.enable = true;
           settings.hooks = {
