@@ -1,0 +1,22 @@
+services:
+  unifi-client-check:
+    image: zsamuels28/unificlientalerts:latest
+    container_name: unifi-client-check
+    mac_address: aa:3b:95:d2:8a:cb
+    networks:
+      personal:
+        ipv4_address: 192.168.6.233
+    volumes:
+      - /mnt/performance/docker/unifi-client-check/usr/src/myapp/src/knownMacs.db:/usr/src/myapp/src/knownMacs.db
+    environment:
+      - REMEMBER_NEW_DEVICES=true
+      - UNIFI_CONTROLLER_USER=localadmin
+      - UNIFI_CONTROLLER_PASSWORD=${LOCAL_ADMIN_PASSWORD}
+      - UNIFI_CONTROLLER_URL=https://192.168.6.1:443
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    restart: unless-stopped
+
+networks:
+  personal:
+    external: true

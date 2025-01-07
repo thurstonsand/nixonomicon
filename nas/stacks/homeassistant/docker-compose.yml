@@ -1,0 +1,67 @@
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    mac_address: aa:7a:ef:16:ff:bf
+    networks:
+      external:
+        ipv4_address: 192.168.5.226
+    ports:
+      - "80:80"
+    volumes:
+      - /mnt/performance/docker/homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    devices:
+      - /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_813026A9-if01-port0:/dev/zigbee
+    restart: unless-stopped
+    depends_on:
+      - zwave-js-ui
+      - mosquitto
+
+  zwave-js-ui:
+    image: zwavejs/zwave-js-ui:latest
+    container_name: zwave-js-ui
+    mac_address: aa:59:de:11:2d:c0
+    networks:
+      iot:
+        ipv4_address: 192.168.3.225
+    ports:
+      - "8091:8091" # http port
+      - "3000:3000" # service port
+    volumes:
+      - /mnt/performance/docker/zwave-js-ui/usr/src/app/store:/usr/src/app/store
+      - /etc/localtime:/etc/localtime:ro
+    devices:
+      - /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_813026A9-if00-port0:/dev/zwave
+    tty: true
+    stop_signal: SIGINT
+    restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    user: "950:544"
+    mac_address: aa:bc:fa:6a:0d:1f
+    networks:
+      iot:
+        ipv4_address: 192.168.3.226
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+      - "9001:9001"
+    environment:
+      - RUN_INSECURE_MQTT_SERVER=0
+      - PUID=950
+      - PGID=544
+    volumes:
+      - /mnt/performance/docker/mosquitto/config:/mosquitto/config
+      - /mnt/performance/docker/mosquitto/data:/mosquitto/data
+      - /mnt/performance/docker/mosquitto/log:/mosquitto/log
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+
+networks:
+  external:
+    external: true
+  iot:
+    external: true
