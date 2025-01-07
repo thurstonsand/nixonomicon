@@ -25,6 +25,7 @@
     "git.terminalGitEditor": true,
     "github.gitProtocol": "ssh",
     "merge-conflict.autoNavigateNextConflict.enabled": true,
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "nix.formatterPath": [
         "nix",
@@ -53,4 +54,5 @@
     "gitlens.mode.active": "zen",
     "editor.accessibilitySupport": "off",
     "security.workspace.trust.untrustedFiles": "open",
+    "remote.autoForwardPortsSource": "hybrid",
 }

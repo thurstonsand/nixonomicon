@@ -133,6 +133,12 @@
             # TERM = "xterm-256color";
           };
         };
+
+        "truenas-dev" = {
+          hostname = "192.168.6.236";
+          user = "admin";
+          forwardAgent = true;
+        };
       };
     };
 
