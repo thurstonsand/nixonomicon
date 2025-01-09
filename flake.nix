@@ -108,6 +108,15 @@
           };
         };
         homeConfigurations = {
+          "truenas-shell" = home-manager.lib.homeManagerConfiguration {
+            # pkgs = import nixpkgs {
+            #   system = "x86_64-linux";
+            # };
+            modules = [
+              ./common/home.nix
+              ./truenas-shell/home.nix
+            ];
+          };
           "deck" = home-manager.lib.homeManagerConfiguration {
             modules = [
               {
