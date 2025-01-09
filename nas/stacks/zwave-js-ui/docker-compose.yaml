@@ -5,10 +5,10 @@ services:
     mac_address: aa:59:de:11:2d:c0
     networks:
       iot:
-        ipv4_address: 192.168.3.225
+        ipv4_address: ${ZWAVEJSUI_IP}
     ports:
-      - "8091:8091"
-      - "3000:3000"
+      - "8091:8091" # http port
+      - "3000:3000" # service port
     volumes:
       - /mnt/performance/docker/zwave-js-ui/usr/src/app/store:/usr/src/app/store
       - /etc/localtime:/etc/localtime:ro

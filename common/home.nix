@@ -114,7 +114,6 @@
 
       serverAliveInterval = 60;
       serverAliveCountMax = 3;
-      extraConfig = ''IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
 
       matchBlocks = {
         "nix" = {
@@ -132,6 +131,13 @@
             # https://ghostty.org/docs/help/terminfo#copy-ghostty's-terminfo-to-a-remote-machine
             # TERM = "xterm-256color";
           };
+        };
+
+        "truenas-dev" = {
+          hostname = "192.168.6.227";
+          user = "admin";
+          port = 2222;
+          forwardAgent = true;
         };
       };
     };

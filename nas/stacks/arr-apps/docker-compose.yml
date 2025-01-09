@@ -5,7 +5,7 @@ services:
     mac_address: aa:aa:ba:eb:4c:fc
     networks:
       personal:
-        ipv4_address: 192.168.6.228
+        ipv4_address: ${FLARESOLVERR_IP}
     ports:
       - "8191:8191"
     volumes:
@@ -18,7 +18,7 @@ services:
     mac_address: aa:bb:ba:ba:8f:f1
     networks:
       personal:
-        ipv4_address: 192.168.6.229
+        ipv4_address: ${PROWLARR_IP}
     ports:
       - "9696:9696"
     volumes:
@@ -35,7 +35,7 @@ services:
     mac_address: aa:88:44:f4:6a:d3
     networks:
       personal:
-        ipv4_address: 192.168.6.230
+        ipv4_address: ${SONARR_IP}
     ports:
       - "8989:8989"
     volumes:
@@ -53,7 +53,7 @@ services:
     mac_address: aa:fc:67:fd:fb:e8
     networks:
       personal:
-        ipv4_address: 192.168.6.231
+        ipv4_address: ${RADARR_IP}
     ports:
       - "7878:7878"
     volumes:

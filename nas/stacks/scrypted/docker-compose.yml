@@ -5,7 +5,7 @@ services:
     mac_address: aa:83:cc:9f:fc:1e
     networks:
       personal:
-        ipv4_address: 192.168.6.232
+        ipv4_address: ${SCRYPTED_IP}
     ports:
       - "11080:11080"
       - "10443:10443"

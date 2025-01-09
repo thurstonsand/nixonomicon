@@ -5,7 +5,7 @@ services:
     mac_address: aa:3d:69:30:d7:c8
     networks:
       personal:
-        ipv4_address: 192.168.6.236
+        ipv4_address: ${WATCHTOWER_IP}
     ports:
       - "8080:8080"
     volumes:

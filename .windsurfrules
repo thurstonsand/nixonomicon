@@ -9,3 +9,4 @@
 6. when you run any commands, ensure that you block on them until you get the results, to ensure it does not run into any errors
 7. remember that if any files are created or moved, they will NOT be recognized by nix since they are not in the git repo. So they will need to be added/staged in git before rebuild will succeed. This does not apply if the files are simply edited
 8. where appropriate, check your work to ensure that your actions were completed successfully
+9. docker compose files no longer need a version field; it can just be excluded

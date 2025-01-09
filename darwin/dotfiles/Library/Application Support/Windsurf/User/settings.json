@@ -55,4 +55,5 @@
     "editor.accessibilitySupport": "off",
     "security.workspace.trust.untrustedFiles": "open",
     "remote.autoForwardPortsSource": "hybrid",
+    "explorer.confirmDragAndDrop": false,
 }

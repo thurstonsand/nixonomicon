@@ -1,0 +1,27 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mosquitto
+    user: "950:544"
+    mac_address: aa:bc:fa:6a:0d:1f
+    networks:
+      iot:
+        ipv4_address: ${MOSQUITTO_IP}
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+      - "9001:9001"
+    environment:
+      - RUN_INSECURE_MQTT_SERVER=0
+      - PUID=950
+      - PGID=544
+    volumes:
+      - /mnt/performance/docker/mosquitto/config:/mosquitto/config
+      - /mnt/performance/docker/mosquitto/data:/mosquitto/data
+      - /mnt/performance/docker/mosquitto/log:/mosquitto/log
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+
+networks:
+  iot:
+    external: true

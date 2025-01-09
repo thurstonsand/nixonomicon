@@ -30,6 +30,7 @@
       "mac-mouse-fix"
       "moonlight"
       "orion"
+      "prusaslicer"
       "raycast"
       "rectangle-pro"
       "reflect"
@@ -57,6 +58,7 @@
       "Telegram" = 747648890;
       "WhatsApp" = 310633997;
       "Wipr" = 1662217862; # actually Wipr 2
+      "WireGuard" = 1451685025;
     };
   };
 }
