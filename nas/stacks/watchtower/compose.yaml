@@ -5,9 +5,9 @@ services:
     mac_address: aa:3d:69:30:d7:c8
     networks:
       personal:
-        ipv4_address: ${WATCHTOWER_IP}
+        ipv4_address: 192.168.6.236
     ports:
-      - "8080:8080"
+      - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/localtime:/etc/localtime:ro

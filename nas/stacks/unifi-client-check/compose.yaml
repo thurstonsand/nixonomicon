@@ -5,7 +5,7 @@ services:
     mac_address: aa:3b:95:d2:8a:cb
     networks:
       personal:
-        ipv4_address: ${UNIFI_CLIENT_CHECK_IP}
+        ipv4_address: 192.168.6.233
     volumes:
       - /mnt/performance/docker/unifi-client-check/usr/src/myapp/src/knownMacs.db:/usr/src/myapp/src/knownMacs.db
     environment:

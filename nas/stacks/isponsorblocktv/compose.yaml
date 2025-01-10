@@ -5,7 +5,7 @@ services:
     mac_address: aa:ac:82:e2:e1:a4
     networks:
       personal:
-        ipv4_address: ${ISPONSORBLOCKTV_IP}
+        ipv4_address: 192.168.6.235
     volumes:
       - /mnt/performance/docker/isponsorblocktv/app/data:/app/data
     restart: unless-stopped

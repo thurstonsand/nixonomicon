@@ -5,7 +5,7 @@ services:
     mac_address: aa:bd:01:b0:b9:04
     networks:
       personal:
-        ipv4_address: ${SSHD_IP}
+        ipv4_address: 192.168.6.227
     ports:
       - 2222:2222
     env_file:

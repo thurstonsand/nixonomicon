@@ -5,7 +5,7 @@ services:
     mac_address: aa:5f:e6:ed:91:31
     networks:
       personal:
-        ipv4_address: ${DOCKER_SOCKET_PROXY_IP}
+        ipv4_address: 192.168.6.234
     ports:
       - "2375:2375"
     volumes:
@@ -21,7 +21,7 @@ services:
     mac_address: aa:3d:4a:69:04:ca
     networks:
       personal:
-        ipv4_address: ${HOMEPAGE_IP}
+        ipv4_address: 192.168.6.225
     ports:
       - "80:80"
     volumes:

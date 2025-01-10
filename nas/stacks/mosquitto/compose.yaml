@@ -6,7 +6,7 @@ services:
     mac_address: aa:bc:fa:6a:0d:1f
     networks:
       iot:
-        ipv4_address: ${MOSQUITTO_IP}
+        ipv4_address: 192.168.3.226
     ports:
       - "1883:1883"
       - "8883:8883"
