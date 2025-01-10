@@ -160,6 +160,7 @@
     zsh = {
       enable = true;
       autosuggestion.enable = true;
+      autocd = true;
       enableCompletion = true;
       history = {
         expireDuplicatesFirst = true;
@@ -170,10 +171,18 @@
         save = 10000;
       };
 
+      initExtra = ''
+        # Extended glob operators
+        setopt EXTENDED_GLOB       # treat #, ~, and ^ as part of patterns for filename generation
+
+        # Input/Output
+        setopt INTERACTIVE_COMMENTS # allow comments in interactive shells
+
+        # Job Control
+        setopt NOTIFY              # report the status of background jobs immediately
+      '';
+
       shellAliases = {
-        "ll" = "ls -l";
-        "la" = "ls -al";
-        "l" = "eza -F";
         "ping" = "prettyping";
         "top" = "htop";
       };

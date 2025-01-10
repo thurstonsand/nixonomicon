@@ -46,11 +46,42 @@ jobs:
         id: extract-configs
         run: |
           # Create directory structure
-          mkdir -p nas/home/git
+          mkdir -p nas/home/.config/git
 
           # Extract config files and remove gpg program line
-          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/config".text' | grep -v "program = " > nas/home/git/config
-          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/ignore".text' > nas/home/git/ignore
+          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/config".text' | grep -v "program = " > nas/home/.config/git/config
+          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/ignore".text' > nas/home/.config/git/ignore
+
+          # Extract zsh config
+          {
+            echo typeset -U path cdpath fpath manpath
+            echo "autoload -U compinit && compinit"
+            echo
+            echo "# History Settings"
+            echo "HISTSIZE=$(nix eval '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.programs.zsh.history.size')"
+            echo "SAVEHIST=$(nix eval '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.programs.zsh.history.save')"
+            echo "HISTFILE=$(nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.programs.zsh.history.path')"
+            echo
+            echo "# Shell options and initialization"
+            nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file.".zshrc".text' | grep -E '^[[:space:]]*(set|unset)opt' | grep -v '/nix/store\|/etc/profiles'
+            echo
+            echo "# Program Inits"
+            echo 'eval "$(direnv hook zsh)"'
+            echo 'eval "$(fzf --zsh)"'
+            echo 'eval "$(zoxide init zsh --cmd j)"'
+            echo
+            echo "# aliases"
+            nix eval --raw --impure --expr '
+              let
+                flake = builtins.getFlake "/Users/thurstonsand/Develop/nixonomicon";
+                nixpkgs = flake.inputs.nixpkgs;
+                config = flake.nixosConfigurations.knownapps.config;
+                shellAliases = builtins.removeAttrs config.home-manager.users.thurstonsand.programs.zsh.shellAliases ["switch"];
+              in
+                builtins.concatStringsSep "\n"
+                  (nixpkgs.lib.mapAttrsToList (key: value: "alias -- ${key}=\"${value}\"") shellAliases)
+            '
+          } > nas/home/.zshrc
 
           # Check if there are any changes
           if [[ -n "$(git status --porcelain nas/home)" ]]; then

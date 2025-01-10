@@ -3,6 +3,7 @@ services:
     image: lscr.io/linuxserver/openssh-server:latest
     container_name: sshd
     mac_address: aa:bd:01:b0:b9:04
+    entrypoint: [ "/config/startup.sh" ]
     networks:
       personal:
         ipv4_address: ${SSHD_IP}
@@ -18,14 +19,13 @@ services:
       - PASSWORD_ACCESS=false
       - USER_NAME=admin
       - LOG_STDOUT=true
-      - DOCKER_MODS=linuxserver/mods:openssh-server-autossh|linuxserver/mods:openssh-server-git|linuxserver/mods:universal-package-install
-      - INSTALL_PACKAGES=bat|direnv|eza|fzf|git-crypt|htop|zoxide|zsh
+      - DOCKER_MODS=linuxserver/mods:openssh-server-autossh
     volumes:
       - /mnt/performance/docker/sshd/config:/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
       - /mnt/performance/docker:/mnt/performance/docker
-      - /mnt/performance/home/admin/Develop:/mnt/performance/home/admin/Develop
-      - /mnt/performance/home/admin/Develop/nixonomicon/nas/home:/config:ro
+      - /mnt/performance/home/admin/Develop:/config/Develop
     restart: unless-stopped
 networks:
   personal:

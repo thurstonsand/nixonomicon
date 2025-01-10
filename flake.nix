@@ -108,10 +108,11 @@
           };
         };
         homeConfigurations = {
+          # TODO: may remove this if we don't use nix after all
           "truenas-shell" = home-manager.lib.homeManagerConfiguration {
-            # pkgs = import nixpkgs {
-            #   system = "x86_64-linux";
-            # };
+            pkgs = import nixpkgs {
+              system = "x86_64-linux";
+            };
             modules = [
               ./common/home.nix
               ./truenas-shell/home.nix
