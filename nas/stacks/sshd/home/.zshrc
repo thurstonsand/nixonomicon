@@ -21,8 +21,8 @@ setopt INTERACTIVE_COMMENTS # allow comments in interactive shells
 setopt NOTIFY              # report the status of background jobs immediately
 
 # Program Inits
-eval "$(direnv hook zsh)"
 eval "$(fzf --zsh)"
+eval "$(starship init zsh)"
 eval "$(zoxide init zsh --cmd j)"
 
 # aliases

@@ -45,12 +45,13 @@ jobs:
       - name: Extract portable configs
         id: extract-configs
         run: |
+          HOME_DIR=nas/stacks/sshd/home
           # Create directory structure
-          mkdir -p nas/home/.config/git
+          mkdir -p $HOME_DIR/.config/git
 
           # Extract config files and remove gpg program line
-          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/config".text' | grep -v "program = " > nas/home/.config/git/config
-          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/ignore".text' > nas/home/.config/git/ignore
+          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/config".text' | grep -v "program = " > $HOME_DIR/.config/git/config
+          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/ignore".text' > $HOME_DIR/.config/git/ignore
 
           # Extract zsh config
           {
@@ -66,14 +67,14 @@ jobs:
             nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file.".zshrc".text' | grep -E '^[[:space:]]*(set|unset)opt' | grep -v '/nix/store\|/etc/profiles'
             echo
             echo "# Program Inits"
-            echo 'eval "$(direnv hook zsh)"'
             echo 'eval "$(fzf --zsh)"'
+            echo 'eval "$(starship init zsh)"'
             echo 'eval "$(zoxide init zsh --cmd j)"'
             echo
             echo "# aliases"
             nix eval --raw --impure --expr '
               let
-                flake = builtins.getFlake "/Users/thurstonsand/Develop/nixonomicon";
+                flake = builtins.getFlake (toString ./.);
                 nixpkgs = flake.inputs.nixpkgs;
                 config = flake.nixosConfigurations.knownapps.config;
                 shellAliases = builtins.removeAttrs config.home-manager.users.thurstonsand.programs.zsh.shellAliases ["switch"];
@@ -81,10 +82,10 @@ jobs:
                 builtins.concatStringsSep "\n"
                   (nixpkgs.lib.mapAttrsToList (key: value: "alias -- ${key}=\"${value}\"") shellAliases)
             '
-          } > nas/home/.zshrc
+          } > $HOME_DIR/.zshrc
 
           # Check if there are any changes
-          if [[ -n "$(git status --porcelain nas/home)" ]]; then
+          if [[ -n "$(git status --porcelain $HOME_DIR)" ]]; then
             echo "changes=true" >> $GITHUB_OUTPUT
           else
             echo "changes=false" >> $GITHUB_OUTPUT
@@ -93,13 +94,14 @@ jobs:
       - name: Show potential changes
         if: github.event_name == 'pull_request' && steps.extract-configs.outputs.changes == 'true'
         run: |
+          HOME_DIR=nas/stacks/sshd/home
           echo "The following changes would be made to portable configs:"
           # First show any new files
-          git status --porcelain nas/home
+          git status --porcelain $HOME_DIR
           echo "---"
           # Then show content differences
-          git add nas/home
-          git diff --cached nas/home
+          git add $HOME_DIR
+          git diff --cached $HOME_DIR
 
       - name: Create Pull Request
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.extract-configs.outputs.changes == 'true'
