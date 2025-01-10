@@ -180,6 +180,9 @@
 
         # Job Control
         setopt NOTIFY              # report the status of background jobs immediately
+
+        # Key bindings
+        bindkey "^[[3~" delete-char
       '';
 
       shellAliases = {
