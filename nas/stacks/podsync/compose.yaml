@@ -1,19 +1,26 @@
 services:
   podsync:
-    image: mxpv/podsync:latest
+    # TODO: switch back to official image once bugfix has been merged:
+    #       https://github.com/mxpv/podsync/pull/677
+    # image: ghcr.io/mxpv/podsync
+    image: podsync:nopremiere
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
     container_name: podsync
-    user: "950:544"
+    # user: 950:544
     mac_address: aa:a6:01:99:c4:52
     networks:
       external:
         ipv4_address: 192.168.5.228
     ports:
-      - "80:80"
+      - 80:80
     volumes:
-      - /mnt/performance/docker/podsync/app/data:/app/data
+      - /mnt/capacity/watch/podcasts/podsync/app/data:/app/data
       - /mnt/performance/docker/podsync/app/config.toml:/app/config.toml
+      # this helps beat captchas/rate limiting
+      # https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies
+      - /mnt/performance/docker/podsync/cookies.txt:/cookies.txt
     restart: unless-stopped
-
 networks:
   external:
     external: true
