@@ -143,8 +143,8 @@
           '';
           nativeBuildInputs = with pkgs.buildPackages; [
             alejandra
-            rustc
             cargo
+            rustc
           ];
         };
         pre-commit = {
