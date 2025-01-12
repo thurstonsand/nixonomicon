@@ -8,7 +8,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=false"
     container_name: podsync
     # user: 950:544
-    mac_address: aa:a6:01:99:c4:52
+    # mac_address: aa:a6:01:99:c4:52
     networks:
       external:
         ipv4_address: 192.168.5.228

@@ -2,7 +2,7 @@ services:
   watchtower:
     image: containrrr/watchtower
     container_name: watchtower
-    mac_address: aa:3d:69:30:d7:c8
+    # mac_address: aa:3d:69:30:d7:c8
     networks:
       personal:
         ipv4_address: 192.168.6.236

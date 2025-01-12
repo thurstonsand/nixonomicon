@@ -2,7 +2,7 @@ services:
   sshd:
     image: lscr.io/linuxserver/openssh-server:latest
     container_name: sshd
-    mac_address: aa:bd:01:b0:b9:04
+    # mac_address: aa:bd:01:b0:b9:04
     networks:
       personal:
         ipv4_address: 192.168.6.227

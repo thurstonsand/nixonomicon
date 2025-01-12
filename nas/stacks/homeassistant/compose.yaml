@@ -2,7 +2,7 @@ services:
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
-    mac_address: aa:7a:ef:16:ff:bf
+    # mac_address: aa:7a:ef:16:ff:bf
     networks:
       external:
         ipv4_address: 192.168.5.226

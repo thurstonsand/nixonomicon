@@ -2,7 +2,7 @@ services:
   unifi-client-check:
     image: zsamuels28/unificlientalerts:latest
     container_name: unifi-client-check
-    mac_address: aa:3b:95:d2:8a:cb
+    # mac_address: aa:3b:95:d2:8a:cb
     networks:
       personal:
         ipv4_address: 192.168.6.233

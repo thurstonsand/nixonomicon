@@ -2,7 +2,7 @@ services:
   isponsorblocktv:
     image: ghcr.io/dmunozv04/isponsorblocktv:latest
     container_name: isponsorblocktv
-    mac_address: aa:ac:82:e2:e1:a4
+    # mac_address: aa:ac:82:e2:e1:a4
     networks:
       personal:
         ipv4_address: 192.168.6.235

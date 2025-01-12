@@ -2,7 +2,7 @@ services:
   scrypted:
     image: koush/scrypted
     container_name: scrypted
-    mac_address: aa:83:cc:9f:fc:1e
+    # mac_address: aa:83:cc:9f:fc:1e
     networks:
       personal:
         ipv4_address: 192.168.6.232

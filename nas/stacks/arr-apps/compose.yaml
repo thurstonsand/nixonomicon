@@ -2,7 +2,7 @@ services:
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
-    mac_address: aa:aa:ba:eb:4c:fc
+    # mac_address: aa:aa:ba:eb:4c:fc
     networks:
       personal:
         ipv4_address: 192.168.6.228
@@ -15,7 +15,7 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
-    mac_address: aa:bb:ba:ba:8f:f1
+    # mac_address: aa:bb:ba:ba:8f:f1
     networks:
       personal:
         ipv4_address: 192.168.6.229
@@ -32,7 +32,7 @@ services:
   sonarr:
     image: linuxserver/sonarr:develop
     container_name: sonarr
-    mac_address: aa:88:44:f4:6a:d3
+    # mac_address: aa:88:44:f4:6a:d3
     networks:
       personal:
         ipv4_address: 192.168.6.230
@@ -50,7 +50,7 @@ services:
   radarr:
     image: linuxserver/radarr
     container_name: radarr
-    mac_address: aa:fc:67:fd:fb:e8
+    # mac_address: aa:fc:67:fd:fb:e8
     networks:
       personal:
         ipv4_address: 192.168.6.231
@@ -77,7 +77,7 @@ services:
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
-    mac_address: aa:06:ca:89:9e:df
+    # mac_address: aa:06:ca:89:9e:df
     networks:
       external:
         ipv4_address: 192.168.5.227

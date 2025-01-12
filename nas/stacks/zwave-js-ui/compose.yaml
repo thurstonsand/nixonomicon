@@ -2,7 +2,7 @@ services:
   zwave-js-ui:
     image: zwavejs/zwave-js-ui:latest
     container_name: zwave-js-ui
-    mac_address: aa:59:de:11:2d:c0
+    # mac_address: aa:59:de:11:2d:c0
     networks:
       iot:
         ipv4_address: 192.168.3.225

@@ -3,7 +3,7 @@ services:
     image: eclipse-mosquitto:2
     container_name: mosquitto
     user: "950:544"
-    mac_address: aa:bc:fa:6a:0d:1f
+    # mac_address: aa:bc:fa:6a:0d:1f
     networks:
       iot:
         ipv4_address: 192.168.3.226

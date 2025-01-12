@@ -2,7 +2,7 @@ services:
   cloudflared:
     image: cloudflare/cloudflared
     container_name: cloudflared
-    mac_address: aa:ac:db:0f:4f:d5
+    # mac_address: aa:ac:db:0f:4f:d5
     networks:
       external:
         ipv4_address: 192.168.5.225

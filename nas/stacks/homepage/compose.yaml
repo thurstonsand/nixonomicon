@@ -2,7 +2,7 @@ services:
   homepage-docker-socket-proxy:
     image: ghcr.io/tecnativa/docker-socket-proxy:latest
     container_name: homepage-docker-socket-proxy
-    mac_address: aa:5f:e6:ed:91:31
+    # mac_address: aa:5f:e6:ed:91:31
     networks:
       personal:
         ipv4_address: 192.168.6.234
@@ -18,7 +18,7 @@ services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
-    mac_address: aa:3d:4a:69:04:ca
+    # mac_address: aa:3d:4a:69:04:ca
     networks:
       personal:
         ipv4_address: 192.168.6.225
