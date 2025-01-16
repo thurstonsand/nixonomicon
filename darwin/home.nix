@@ -17,16 +17,18 @@ in {
         force = true;
       };
       "Library/Application Support/Storj/Uplink" = {
-        source = ../common/dotfiles/storj-uplink;
+        source = ../common/platform_dependent_dotfiles/storj-uplink;
         recursive = true;
         force = true;
       };
     };
   };
-  xdg.configFile."." = {
-    source = ./dotfiles/.config;
-    recursive = true;
-    force = true;
+  xdg.configFile = {
+    "ghostty" = {
+      source = ./dotfiles/.config/ghostty;
+      recursive = true;
+      force = true;
+    };
   };
 
   programs = {

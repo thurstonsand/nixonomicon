@@ -37,6 +37,7 @@
       "rectangle-pro"
       "reflect"
       "setapp"
+      "slack"
       "steam"
       "wifiman"
       "windsurf"

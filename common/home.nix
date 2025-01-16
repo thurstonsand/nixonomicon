@@ -16,11 +16,22 @@
       # inshellisense
       nix-prefetch-github
       prettyping
+      rclone
+      # in case repo has been stuck in locked state:
+      # restic --repo rclone:storj:windows-backup/mnt/capacity/backup/ unlock
+      restic
       storj-uplink
       tldr
       unzip
     ];
     stateVersion = "23.05";
+  };
+  xdg.configFile = {
+    "rclone" = {
+      source = ./dotfiles/.config/rclone;
+      recursive = true;
+      force = true;
+    };
   };
 
   programs = {
