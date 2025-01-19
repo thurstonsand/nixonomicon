@@ -2,6 +2,7 @@
     "editor.fontFamily": "Mononoki Nerd Font, monospace",
     "editor.fontSize": 13,
     "editor.wordWrap": "on",
+    "workbench.editor.wrapTabs": true,
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "diffEditor.codeLens": true,
     "editor.minimap.enabled": true,

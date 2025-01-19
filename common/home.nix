@@ -150,6 +150,15 @@
           port = 2222;
           forwardAgent = true;
         };
+
+        "haos" = {
+          hostname = "192.168.1.89";
+          user = "root";
+          forwardAgent = true;
+          setEnv = {
+            TERM = "xterm-256color";
+          };
+        };
       };
     };
 
