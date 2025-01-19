@@ -20,10 +20,15 @@
     options = "--delete-older-than 7d";
   };
 
-  # Disable auto-optimise-store because of this issue:
-  #   https://github.com/NixOS/nix/issues/7273
-  # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
   nix.settings = {
+    # Disable auto-optimise-store because of this issue:
+    #   https://github.com/NixOS/nix/issues/7273
+    # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
     auto-optimise-store = false;
+    ssl-cert-file = "/private/etc/nix/macos-keychain.crt";
+
+    extra-trusted-substituters = [
+      "https://cache.flakehub.com"
+    ];
   };
 }
