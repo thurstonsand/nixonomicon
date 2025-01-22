@@ -52,6 +52,8 @@
     "workbench.colorTheme": "Tokyo Night",
     "files.autoSave": "onFocusChange",
     "windsurf.enableModelBasedAutoExecution": true,
+    "windsurf.cascadeOpenOnReload": false,
+    "windsurf.autocompleteSpeed": "fast",
     "gitlens.mode.active": "zen",
     "editor.accessibilitySupport": "off",
     "security.workspace.trust.untrustedFiles": "open",
