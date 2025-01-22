@@ -24,6 +24,10 @@
     nur.url = "github:nix-community/NUR";
     # don't use "follows" for nixpkgs here, as this can cause compat issues
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nvchad4nix = {
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,6 +50,7 @@
     darwin,
     determinate,
     nur,
+    nix-index-database,
     nvchad4nix,
     vscode-server,
     ...
@@ -64,6 +69,7 @@
               ./nas/system
               ./nas/containers
               home-manager.nixosModules.home-manager
+              nix-index-database.hmModules.nix-index
               {
                 home-manager = {
                   useGlobalPkgs = true;
@@ -97,6 +103,7 @@
                   users.thurstonsand = {
                     imports = [
                       inputs.nvchad4nix.homeManagerModule
+                      nix-index-database.hmModules.nix-index
                       (import ./common/home.nix)
                       (import ./darwin/home.nix)
                     ];
@@ -114,6 +121,7 @@
               system = "x86_64-linux";
             };
             modules = [
+              nix-index-database.hmModules.nix-index
               ./common/home.nix
               ./truenas-shell/home.nix
             ];
@@ -123,6 +131,7 @@
               {
                 nixpkgs.overlays = [nur.overlay];
               }
+              nix-index-database.hmModules.nix-index
               ./common/home.nix
               ./steamdeck/home.nix
             ];

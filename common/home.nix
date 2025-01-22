@@ -14,6 +14,7 @@
       # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/in/inshellisense/package.nix
       # must be >0.0.1-rc.18
       # inshellisense
+      nix-inspect
       nix-prefetch-github
       prettyping
       rclone
@@ -41,10 +42,16 @@
 
     bat.enable = true;
 
+    btop.enable = true;
+
     direnv = {
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
+      config.global = {
+        # Make direnv messages less verbose
+        hide_env_diff = true;
+      };
     };
 
     eza = {
@@ -88,6 +95,15 @@
     };
 
     htop.enable = true;
+
+    jq.enable = true;
+
+    nix-index = {
+      enable = true;
+    };
+    nix-index-database = {
+      comma.enable = true;
+    };
 
     nvchad = {
       enable = true;
@@ -197,6 +213,17 @@
       autosuggestion.enable = true;
       autocd = true;
       enableCompletion = true;
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = [
+          "main"
+          "brackets"
+          "pattern"
+          "line"
+          "cursor"
+          "root"
+        ];
+      };
       history = {
         expireDuplicatesFirst = true;
         ignoreDups = true;
