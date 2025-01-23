@@ -69,7 +69,6 @@
               ./nas/system
               ./nas/containers
               home-manager.nixosModules.home-manager
-              nix-index-database.hmModules.nix-index
               {
                 home-manager = {
                   useGlobalPkgs = true;
@@ -77,6 +76,7 @@
                   users.thurstonsand = {
                     imports = [
                       inputs.nvchad4nix.homeManagerModule
+                      nix-index-database.hmModules.nix-index
                       (import ./common/home.nix)
                       (import ./nas/home.nix)
                     ];
