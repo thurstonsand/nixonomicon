@@ -1,0 +1,9 @@
+# Create output directories and copy files for Cloudflare Pages
+
+# Copy public key to Tesla-specific location
+copy-public-key:
+    mkdir -p out/.well-known/appspecific
+    cp src/public-key.pem out/.well-known/appspecific/com.tesla.3p.public-key.pem
+
+# Default recipe that copies all necessary files
+default: copy-public-key

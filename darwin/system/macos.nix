@@ -11,6 +11,11 @@
 
     finder = {
       _FXShowPosixPathInTitle = true;
+      # icnv = icon view
+      # nlsv = list view
+      # clmv = column view
+      # flwv = cover flow view
+      FXPreferredViewStyle = "ncnv";
       AppleShowAllExtensions = true;
       FXEnableExtensionChangeWarning = false;
       QuitMenuItem = true;
@@ -21,6 +26,7 @@
     menuExtraClock.Show24Hour = true;
 
     NSGlobalDomain = {
+      AppleShowAllFiles = true;
       AppleShowAllExtensions = true;
       AppleShowScrollBars = "Always";
       NSAutomaticCapitalizationEnabled = false;

@@ -22,6 +22,7 @@
       "beeper"
       "chatgpt"
       "choosy"
+      "cursor"
       "google-chrome"
       "contexts"
       "discord"

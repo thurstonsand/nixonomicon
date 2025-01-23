@@ -1,4 +1,5 @@
 .gitattributes !filter !diff
-nas/containers/secrets.json filter=git-crypt diff=git-crypt linguist-generated=true
-common/platform_dependent_dotfiles/storj-uplink/access.json filter=git-crypt diff=git-crypt
+cloudflare-pages/tesla/src/private-key.pem filter=git-crypt diff=git-crypt
 common/dotfiles/.config/rclone/rclone.conf filter=git-crypt diff=git-crypt
+common/platform_dependent_dotfiles/storj-uplink/access.json filter=git-crypt diff=git-crypt
+nas/containers/secrets.json filter=git-crypt diff=git-crypt linguist-generated=true
