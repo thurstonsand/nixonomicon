@@ -1,4 +1,4 @@
 .direnv
 /.pre-commit-config.yaml
 result
-/cloudflare-pages/**/out
+/cloudflare-pages/**/public

@@ -5,7 +5,7 @@ in {
     username = username;
     homeDirectory = "/Users/${username}";
 
-    # Windsurf files
+    # home files
     file = {
       ".codeium/windsurf/memories/global_rules.md" = {
         source = ./dotfiles/.codeium/windsurf/memories/global_rules.md;
@@ -19,6 +19,10 @@ in {
       "Library/Application Support/Storj/Uplink" = {
         source = ../common/platform_dependent_dotfiles/storj-uplink;
         recursive = true;
+        force = true;
+      };
+      "Library/Application Support/Cursor/User/settings.json" = {
+        source = ./dotfiles/Library/${"Application Support"}/Cursor/User/settings.json;
         force = true;
       };
     };
