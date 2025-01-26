@@ -8,7 +8,6 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs-lib";
@@ -45,7 +44,6 @@
     self,
     flake-parts,
     nixpkgs,
-    flake-utils,
     home-manager,
     darwin,
     determinate,

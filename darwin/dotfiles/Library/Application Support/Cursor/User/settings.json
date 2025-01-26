@@ -57,5 +57,6 @@
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "diffEditor.codeLens": true,
     "cursor.aipreview.enabled": true,
-    "cursor.composer.renderPillsInsteadOfBlocks": true
+    "cursor.composer.renderPillsInsteadOfBlocks": true,
+    "explorer.confirmDragAndDrop": false
 }
