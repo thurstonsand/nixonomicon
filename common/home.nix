@@ -73,7 +73,6 @@
       enable = true;
       ignores = [
         ".DS_Store"
-        ".vscode"
         ".cache"
         ".nix"
       ];
@@ -100,6 +99,36 @@
     htop.enable = true;
 
     jq.enable = true;
+
+    # git-crypt not supported, so leaving this alone for now
+    # jujutsu = {
+    #   enable = true;
+    #   settings = {
+    #     user = {
+    #       name = "Thurston Sandberg";
+    #       email = "thurstonsand@gmail.com";
+    #     };
+    #     ui = {
+    #       editor = "vim";
+    #     };
+    #     fix.tools."1-nix-fmt" = {
+    #       command = "nix fmt";
+    #       patterns = ["**/*.nix"];
+    #     };
+    #     signing = {
+    #       sign-all = true;
+    #       backend = "ssh";
+    #       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6GpY+hdZp60Fbnk9B03sntiJRx7OgLwutV5vJpV6P+";
+    #       # TODO: this is a mac-only setting, so needs to be moved there
+    #       backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+    #     };
+    #     git = {
+    #       sign-on-push = true;
+    #       auto-local-bookmark = true;
+    #       private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
+    #     };
+    #   };
+    # };
 
     nix-index = {
       enable = true;
