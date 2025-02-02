@@ -22,28 +22,29 @@
       "beeper"
       "chatgpt"
       "choosy"
-      "cursor"
-      "google-chrome"
       "contexts"
+      "cursor"
       "discord"
       "fantastical"
       "ghostty"
+      "google-chrome"
       "google-drive"
       "mac-mouse-fix"
       "moonlight"
       "obsidian"
       "orbstack"
       "orion"
-      "pieces"
       "prusaslicer"
       "raycast"
       "rectangle-pro"
       "reflect"
+      "replacicon"
       "setapp"
       "slack"
       "steam"
       "wifiman"
       "windsurf"
+      # "zen-browser" # may install at a later date
     ];
 
     validateMasApps = true;
@@ -62,9 +63,11 @@
       "Play: Save Videos Watch Later" = 1596506190;
       "Save to Reader" = 1640236961;
       "Telegram" = 747648890;
+      "TestFlight" = 899247664;
       "WhatsApp" = 310633997;
       "Wipr" = 1662217862; # actually Wipr 2
       "WireGuard" = 1451685025;
+      "Xcode" = 497799835;
     };
   };
 }

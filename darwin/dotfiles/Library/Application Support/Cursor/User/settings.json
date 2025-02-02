@@ -25,6 +25,35 @@
     "github.gitProtocol": "ssh",
     "merge-conflict.autoNavigateNextConflict.enabled": true,
     "editor.formatOnSave": true,
+    "git.confirmSync": false,
+    "explorer.confirmDelete": false,
+    "workbench.colorTheme": "Monokai",
+    "files.autoSave": "onFocusChange",
+    "window.commandCenter": true,
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.cmdk.useThemedDiffBackground": true,
+    "cursor.composer.cmdPFilePicker2": true,
+    "cursor.diffs.useCharacterLevelDiffs": true,
+    "cursor.general.enableShadowWorkspace": true,
+    "cursor.general.gitGraphIndexing": "enabled",
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "diffEditor.codeLens": true,
+    "cursor.aipreview.enabled": true,
+    "cursor.composer.renderPillsInsteadOfBlocks": true,
+    "explorer.confirmDragAndDrop": false,
+    "pieces.OS.launchOnStartup": "Yes",
+    "pieces.cloudCapabilities": "Blended",
+    "pieces.telemetry": true,
+    // Python
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
+        }
+    },
+    // Nix
     "nix.formatterPath": [
         "nix",
         "fmt",
@@ -42,21 +71,5 @@
                 ]
             }
         },
-    },
-    "git.confirmSync": false,
-    "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Monokai",
-    "files.autoSave": "onFocusChange",
-    "window.commandCenter": true,
-    "cursor.cpp.enablePartialAccepts": true,
-    "cursor.cmdk.useThemedDiffBackground": true,
-    "cursor.composer.cmdPFilePicker2": true,
-    "cursor.diffs.useCharacterLevelDiffs": true,
-    "cursor.general.enableShadowWorkspace": true,
-    "cursor.general.gitGraphIndexing": "enabled",
-    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-    "diffEditor.codeLens": true,
-    "cursor.aipreview.enabled": true,
-    "cursor.composer.renderPillsInsteadOfBlocks": true,
-    "explorer.confirmDragAndDrop": false
+    }
 }
