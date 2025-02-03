@@ -1,0 +1,19 @@
+services:
+  privatebin:
+    image: privatebin/nginx-fpm-alpine:stable
+    container_name: privatebin
+    networks:
+      external:
+        ipv4_address: 192.168.5.229
+    ports:
+      - 8080:8080
+    volumes:
+      - /mnt/performance/docker/privatebin/srv/cfg/conf.php:/srv/cfg/conf.php
+      - /mnt/performance/docker/privatebin/nginx/server.d:/etc/nginx/server.d
+      - /mnt/performance/docker/privatebin/srv/data:/srv/data
+    read_only: true
+    restart: unless-stopped
+
+networks:
+  external:
+    external: true

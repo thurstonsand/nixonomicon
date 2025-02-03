@@ -2,7 +2,7 @@ services:
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
-    # mac_address: aa:7a:ef:16:ff:bf
+    mac_address: aa:7a:ef:16:ff:bf
     networks:
       external:
         ipv4_address: 192.168.5.226
@@ -11,8 +11,8 @@ services:
     volumes:
       - /mnt/performance/docker/homeassistant/config:/config
       - /etc/localtime:/etc/localtime:ro
-    devices:
-      - /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_813026A9-if01-port0:/dev/zigbee
+#    devices:
+#      - /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_813026A9-if01-port0:/dev/zigbee
     restart: unless-stopped
 networks:
   external:
