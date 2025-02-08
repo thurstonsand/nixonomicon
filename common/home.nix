@@ -197,6 +197,9 @@
           user = "admin";
           port = 2222;
           forwardAgent = true;
+          setEnv = {
+            TERM = "xterm-256color";
+          };
         };
 
         "haos" = {
