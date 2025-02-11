@@ -1,0 +1,7 @@
+---
+description: rules pertaining to writing docker compose files
+globs: nas/stacks/**/*
+---
+1. docker compose files no longer need a version field; it can just be excluded
+2. secrets should be stored in `.env` files
+3. this project uses git-crypt, and there is already a `.gitattributes` config that automatically encrypts any `.env` files in the `nas/stacks` folder

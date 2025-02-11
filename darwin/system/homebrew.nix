@@ -42,6 +42,7 @@
       "setapp"
       "slack"
       "steam"
+      "superwhisper"
       "wifiman"
       "windsurf"
       # "zen-browser" # may install at a later date

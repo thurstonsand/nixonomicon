@@ -108,7 +108,6 @@
                   };
                 };
               }
-              determinate.darwinModules.default
             ];
           };
         };
@@ -117,6 +116,7 @@
           "truenas-shell" = home-manager.lib.homeManagerConfiguration {
             pkgs = import nixpkgs {
               system = "x86_64-linux";
+              config.allowUnfree = true;
             };
             modules = [
               nix-index-database.hmModules.nix-index
@@ -142,6 +142,11 @@
         system,
         ...
       }: {
+        _module.args.pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+
         packages.default = home-manager.defaultPackage."${system}";
         formatter = pkgs.alejandra;
         devShells.default = pkgs.mkShell {
