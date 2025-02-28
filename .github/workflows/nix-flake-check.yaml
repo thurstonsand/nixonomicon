@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          # Ensure we get the full git history for git-crypt
+          fetch-depth: 0
 
       - name: Install nix
         uses: nixbuild/nix-quick-install-action@v30
@@ -25,8 +28,7 @@ jobs:
           echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 --decode > git-crypt.key
           git-crypt unlock git-crypt.key
           rm git-crypt.key
-          git-crypt status  # Verify unlock was successful
-          rm -rf .git/git-crypt  # Clean up git-crypt files from repository
+          git-crypt status -e  # Verify unlock was successful
 
       - name: Setup git-crypt (macOS)
         if: runner.os == 'macOS'
@@ -35,8 +37,7 @@ jobs:
           echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 --decode > git-crypt.key
           git-crypt unlock git-crypt.key
           rm git-crypt.key
-          git-crypt status  # Verify unlock was successful
-          rm -rf .git/git-crypt  # Clean up git-crypt files from repository
+          git-crypt status -e  # Verify unlock was successful
 
       - name: Run nix flake check
         run: nix flake check
