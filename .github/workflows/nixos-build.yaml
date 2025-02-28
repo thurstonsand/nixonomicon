@@ -27,13 +27,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          # Ensure we get the full git history for git-crypt
-          fetch-depth: 0
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-      
+
       - name: Setup git-crypt
         run: |
           nix profile install nixpkgs#git-crypt

@@ -14,9 +14,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          # Ensure we get the full git history for git-crypt
-          fetch-depth: 0
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -31,7 +28,7 @@ jobs:
 
       - name: Run nix flake check
         run: nix flake check --accept-flake-config
-        
+
       - name: Cleanup git-crypt
         if: always()
         run: rm -rf .git/git-crypt
