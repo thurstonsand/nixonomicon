@@ -15,6 +15,10 @@
       "domt4/autoupdate"
     ];
 
+    brews = [
+      "llm"
+    ];
+
     casks = [
       "1password"
       "1password-cli"
@@ -31,6 +35,7 @@
       "google-drive"
       "mac-mouse-fix"
       "moonlight"
+      "msty"
       "obsidian"
       "orbstack"
       "orion"
@@ -43,9 +48,11 @@
       "slack"
       "steam"
       "superwhisper"
+      "vlc"
       "wifiman"
       "windsurf"
       # "zen-browser" # may install at a later date
+      "zoom"
     ];
 
     validateMasApps = true;

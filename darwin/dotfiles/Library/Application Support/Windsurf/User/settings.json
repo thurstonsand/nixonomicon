@@ -3,8 +3,6 @@
     "editor.fontSize": 13,
     "editor.wordWrap": "on",
     "workbench.editor.wrapTabs": true,
-    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-    "diffEditor.codeLens": true,
     "editor.minimap.enabled": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
@@ -28,6 +26,34 @@
     "merge-conflict.autoNavigateNextConflict.enabled": true,
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
+    "git.confirmSync": false,
+    "explorer.confirmDelete": false,
+    "workbench.colorTheme": "Tokyo Night",
+    "files.autoSave": "onFocusChange",
+    "window.commandCenter": true,
+    "gitlens.mode.active": "zen",
+    "editor.accessibilitySupport": "off",
+    "security.workspace.trust.untrustedFiles": "open",
+    "remote.autoForwardPortsSource": "hybrid",
+    "explorer.confirmDragAndDrop": false,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "diffEditor.codeLens": true,
+    // windsurf
+    "windsurf.autoExecutionPolicy": "auto",
+    "windsurf.enableModelBasedAutoExecution": true,
+    "windsurf.cascadeOpenOnReload": false,
+    "windsurf.autocompleteSpeed": "fast",
+    "windsurf.enableSupercomplete": true,
+    // Python
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
+        }
+    },
+    // Nix
     "nix.formatterPath": [
         "nix",
         "fmt",
@@ -47,16 +73,4 @@
             }
         },
     },
-    "git.confirmSync": false,
-    "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Tokyo Night",
-    "files.autoSave": "onFocusChange",
-    "windsurf.enableModelBasedAutoExecution": true,
-    "windsurf.cascadeOpenOnReload": false,
-    "windsurf.autocompleteSpeed": "fast",
-    "gitlens.mode.active": "zen",
-    "editor.accessibilitySupport": "off",
-    "security.workspace.trust.untrustedFiles": "open",
-    "remote.autoForwardPortsSource": "hybrid",
-    "explorer.confirmDragAndDrop": false,
 }

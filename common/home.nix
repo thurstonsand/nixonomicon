@@ -2,20 +2,11 @@
   home = {
     packages = with pkgs; [
       ack
+      ffmpeg
       fh
       git-credential-manager
       git-crypt
-      # TODO: remove the override once this bug is fixed
-      # got error where zlib headers were not found
-      (pkgs.git-trim.overrideAttrs (old: {
-        buildInputs = (old.buildInputs or []) ++ [pkgs.zlib];
-      }))
-
-      # TODO: Check back in to see if this is available:
-      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/in/inshellisense/package.nix
-      # must be >0.0.1-rc.18
-      # inshellisense
-
+      git-trim
       just
       nix-inspect
       nix-prefetch-github
@@ -279,7 +270,7 @@
         setopt NOTIFY              # report the status of background jobs immediately
 
         # Key bindings
-        bindkey "^[[3~" delete-char
+        # bindkey "^[[3~" delete-char
       '';
 
       shellAliases = {
