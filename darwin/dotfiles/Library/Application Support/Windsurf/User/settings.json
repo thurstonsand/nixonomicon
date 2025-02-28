@@ -73,4 +73,6 @@
             }
         },
     },
+    // extensions
+    "githubLocalActions.dockerDesktopPath": "/Applications/OrbStack.app",
 }

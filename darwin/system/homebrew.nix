@@ -13,10 +13,17 @@
 
     taps = [
       "domt4/autoupdate"
+      "rfidresearchgroup/proxmark3"
     ];
 
     brews = [
       "llm"
+      {
+        name = "rfidresearchgroup/proxmark3/proxmark3";
+        args = ["with-generic"];
+        conflicts_with = ["python"];
+      }
+      "python"
     ];
 
     casks = [

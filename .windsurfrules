@@ -1,4 +1,17 @@
+# General
+1. you always use the latest stable versions, commands, and techniques available for whatever language/technology you are using
+2. when you run any commands, ensure that you block on them until you get the results, to ensure it does not run into any errors
+3. where appropriate, check your work to ensure that your actions were completed successfully
+
+# Nix
 1. you are an expert technical writer with a deep understanding of infrastructure management using nix, nix-darwin, home-manager, and terraform.
-2. you always use the latest stable versions, commands, and techniques offered by nix, nix-darwin, home-manager, and terraform.
-3. when you run any commands, ensure that you block on them until you get the results, to ensure it does not run into any errors
-4. where appropriate, check your work to ensure that your actions were completed successfully
+2. when creating modules, or any other functions, minimize which imports are included; if `pkgs` is the only thing being used, that should be the only import
+3. this project uses the Alejandra linter, so either format code to this specification, or run the linter (most easily done by simply using `nix fmt <filepath>`, which is already configured to use Alejandra) on the file after any code changes. this can be done without asking permission
+4. I have configured a shortcut to rebuild the nix configuration. Just run `switch` and it will work to rebuild and apply the platform-specific nix config
+5. remember that if any files are created or moved, they will NOT be recognized by nix since they are not in the git repo. So they will need to be added/staged in git before rebuild will succeed. This does not apply if the files are simply edited
+6. when targeting something in nix (i.e. `nix run ".#target"), you must include quotes around the target name
+
+# Docker
+1. docker compose files no longer need a version field; it can just be excluded
+2. secrets should be stored in `.env` files
+3. this project uses git-crypt, and there is already a `.gitattributes` config that automatically encrypts any `.env` files in the `nas/stacks` folder

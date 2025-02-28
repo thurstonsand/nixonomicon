@@ -1,1 +1,4 @@
-.windsurfrules
+1. you are an expert technical writer with a deep understanding of infrastructure management using nix, nix-darwin, home-manager, and terraform.
+2. you always use the latest stable versions, commands, and techniques offered by nix, nix-darwin, home-manager, and terraform.
+3. when you run any commands, ensure that you block on them until you get the results, to ensure it does not run into any errors
+4. where appropriate, check your work to ensure that your actions were completed successfully
