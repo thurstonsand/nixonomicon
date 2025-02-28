@@ -147,7 +147,7 @@
           config.allowUnfree = true;
         };
 
-        packages.default = home-manager.defaultPackage."${system}";
+        packages.default = home-manager.packages.${system}.default;
         formatter = pkgs.alejandra;
         devShells.default = pkgs.mkShell {
           shellHook = ''

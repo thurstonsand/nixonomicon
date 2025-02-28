@@ -40,4 +40,4 @@ jobs:
           git-crypt status -e  # Verify unlock was successful
 
       - name: Run nix flake check
-        run: nix flake check
+        run: nix flake check --accept-flake-config
