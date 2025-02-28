@@ -18,22 +18,12 @@ jobs:
           # Ensure we get the full git history for git-crypt
           fetch-depth: 0
 
-      - name: Install nix
-        uses: nixbuild/nix-quick-install-action@v30
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Setup git-crypt (Ubuntu)
-        if: runner.os == 'Linux'
+      - name: Setup git-crypt
         run: |
-          sudo apt install -y git-crypt
-          echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 --decode > git-crypt.key
-          git-crypt unlock git-crypt.key
-          rm git-crypt.key
-          git-crypt status -e  # Verify unlock was successful
-
-      - name: Setup git-crypt (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          brew install git-crypt
+          nix profile install nixpkgs#git-crypt
           echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 --decode > git-crypt.key
           git-crypt unlock git-crypt.key
           rm git-crypt.key
@@ -41,3 +31,7 @@ jobs:
 
       - name: Run nix flake check
         run: nix flake check --accept-flake-config
+        
+      - name: Cleanup git-crypt
+        if: always()
+        run: rm -rf .git/git-crypt

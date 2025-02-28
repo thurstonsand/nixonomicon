@@ -25,22 +25,25 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          # Ensure we get the full git history for git-crypt
+          fetch-depth: 0
 
-      - name: Install git-crypt
-        run: nix profile install nixpkgs#git-crypt
-
-      - name: Unlock encrypted files
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      
+      - name: Setup git-crypt
         run: |
+          nix profile install nixpkgs#git-crypt
           echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 -d > git-crypt.key
           git-crypt unlock git-crypt.key
           rm git-crypt.key
-          git-crypt status
+          git-crypt status -e  # Verify unlock was successful
 
       - name: Build NixOS configuration
-        run: nix build .#nixosConfigurations.knownapps.config.system.build.toplevel
+        run: nix build .#nixosConfigurations.knownapps.config.system.build.toplevel --accept-flake-config
 
       - name: Extract portable configs
         id: extract-configs
