@@ -16,6 +16,8 @@
 [gpg]
 	format = "ssh"
 
+[gpg "openpgp"]
+
 [init]
 	defaultBranch = "main"
 
