@@ -10,6 +10,7 @@
       just
       nix-inspect
       nix-prefetch-github
+      nodejs
       prettyping
       rclone
       # in case repo has been stuck in locked state:

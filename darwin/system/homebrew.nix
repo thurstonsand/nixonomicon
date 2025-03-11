@@ -33,6 +33,7 @@
       "beeper"
       "chatgpt"
       "choosy"
+      "claude"
       "contexts"
       "cursor"
       "discord"
@@ -41,6 +42,7 @@
       "google-chrome"
       "google-drive"
       "mac-mouse-fix"
+      "mimestream"
       "moonlight"
       "msty"
       "obsidian"
@@ -73,7 +75,6 @@
       "Dark Reader for Safari" = 1438243180;
       "Kagi for Safari" = 1622835804;
       "Mela" = 1568924476;
-      "NextDNS" = 1464122853;
       "Parcel" = 639968404;
       "Play: Save Videos Watch Later" = 1596506190;
       "Save to Reader" = 1640236961;
