@@ -30,7 +30,6 @@
     "explorer.confirmDelete": false,
     "workbench.colorTheme": "Tokyo Night",
     "files.autoSave": "onFocusChange",
-    "window.commandCenter": true,
     "gitlens.mode.active": "zen",
     "editor.accessibilitySupport": "off",
     "security.workspace.trust.untrustedFiles": "open",
@@ -40,10 +39,10 @@
     "diffEditor.codeLens": true,
     // windsurf
     "windsurf.autoExecutionPolicy": "auto",
-    "windsurf.enableModelBasedAutoExecution": true,
     "windsurf.cascadeOpenOnReload": false,
     "windsurf.autocompleteSpeed": "fast",
     "windsurf.enableSupercomplete": true,
+    "windsurf.explainAndFixInCurrentConversation": true,
     // Python
     "[python]": {
         "editor.formatOnSave": true,
@@ -65,10 +64,7 @@
             "formatting": {
                 // can possibly speed this up: https://github.com/oxalica/nil/issues/70
                 "command": [
-                    "nix",
-                    "fmt",
-                    "--",
-                    "--"
+                    "nix-formatter"
                 ]
             }
         },

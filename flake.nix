@@ -137,6 +137,7 @@
         };
       };
       perSystem = {
+        lib,
         config,
         pkgs,
         system,
@@ -147,16 +148,24 @@
           config.allowUnfree = true;
         };
 
-        packages.default = home-manager.packages.${system}.default;
         formatter = pkgs.alejandra;
+        packages = {
+          default = home-manager.packages.${system}.default;
+          nix-formatter = pkgs.writeShellScriptBin "nix-formatter" ''
+            "$PROJECT_FORMATTER" "$@"
+          '';
+        };
+
         devShells.default = pkgs.mkShell {
           shellHook = ''
             ${config.pre-commit.installationScript}
+            export PROJECT_FORMATTER=${lib.getExe self.formatter.${system}}
           '';
           nativeBuildInputs = with pkgs.buildPackages; [
             alejandra
             cargo
             rustc
+            self.packages.${system}.nix-formatter
           ];
         };
         pre-commit = {
