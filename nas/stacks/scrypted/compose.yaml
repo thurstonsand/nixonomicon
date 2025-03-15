@@ -7,8 +7,8 @@ services:
       personal:
         ipv4_address: 192.168.6.232
     ports:
-      - "11080:11080"
-      - "10443:10443"
+      - "11080:11080" # insecure WebUI
+      - "10443:10443" # secure WebUI
     volumes:
       # Avahi Daemon mDNS
       # - /var/run/dbus:/var/run/dbus
