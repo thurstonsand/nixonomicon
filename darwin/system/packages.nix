@@ -14,6 +14,8 @@
       # also take a look at https://github.com/l3uddz/cloudplow?tab=readme-ov-file#automatic-scheduled
       # rclone
 
+      uv
+
       (symlinkJoin {
         name = "code";
         paths = [];

@@ -30,7 +30,6 @@
     "explorer.confirmDelete": false,
     "workbench.colorTheme": "Monokai",
     "files.autoSave": "onFocusChange",
-    "window.commandCenter": true,
     "gitlens.mode.active": "zen",
     "editor.accessibilitySupport": "off",
     "security.workspace.trust.untrustedFiles": "open",
@@ -38,15 +37,13 @@
     "explorer.confirmDragAndDrop": false,
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "diffEditor.codeLens": true,
-    // cursor
-    "cursor.aipreview.enabled": true,
-    "cursor.composer.renderPillsInsteadOfBlocks": true,
-    "cursor.cpp.enablePartialAccepts": true,
     "cursor.cmdk.useThemedDiffBackground": true,
     "cursor.composer.cmdPFilePicker2": true,
     "cursor.diffs.useCharacterLevelDiffs": true,
     "cursor.general.enableShadowWorkspace": true,
     "cursor.general.gitGraphIndexing": "enabled",
+    "window.newWindowProfile": "Default",
+    "window.commandCenter": true,
     // Python
     "[python]": {
         "editor.formatOnSave": true,

@@ -43,6 +43,10 @@
     "windsurf.autocompleteSpeed": "fast",
     "windsurf.enableSupercomplete": true,
     "windsurf.explainAndFixInCurrentConversation": true,
+    "windsurf.cascadeCommandsDenyList": [
+        "pkill -f streamlit",
+        "streamlit run app.py"
+    ],
     // Python
     "[python]": {
         "editor.formatOnSave": true,
@@ -69,6 +73,9 @@
             }
         },
     },
-    // extensions
+    // Extensions
+    // Docker
     "githubLocalActions.dockerDesktopPath": "/Applications/OrbStack.app",
+    // YAML
+    "redhat.telemetry.enabled": false,
 }
