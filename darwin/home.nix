@@ -34,6 +34,12 @@ in {
       force = true;
     };
   };
+  xdg.configFile = {
+    "nextdns.conf" = {
+      source = ./dotfiles/.config/nextdns.conf;
+      force = true;
+    };
+  };
 
   programs = {
     git.extraConfig = {

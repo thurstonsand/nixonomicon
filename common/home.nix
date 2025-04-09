@@ -8,6 +8,7 @@
       git-crypt
       git-trim
       just
+      nextdns
       nix-inspect
       nix-prefetch-github
       nodejs
