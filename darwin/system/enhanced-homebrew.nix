@@ -17,7 +17,7 @@
     configuredIds = with builtins; map toString (attrValues cfg.masApps);
     checkMASApps = pkgs.writeShellScript "check-mas-apps" ''
       set -e
-      INSTALLED_IDS=$(${pkgs.mas}/bin/mas list | awk '{print $1}' | sort)
+      INSTALLED_IDS=$(/opt/homebrew/bin/mas list | awk '$1 != "0" {print $1}' | sort)
       CONFIGURED_IDS="${builtins.concatStringsSep "\n" configuredIds}"
 
       MISSING_IDS=$(comm -23 <(echo "$CONFIGURED_IDS" | sort) <(echo "$INSTALLED_IDS"))
@@ -26,14 +26,14 @@
       if [ -n "$MISSING_IDS" ]; then
         echo "Apps should have been installed, but were not:"
         while IFS= read -r id; do
-          [ -n "$id" ] && echo "  $id ($(${pkgs.mas}/bin/mas info "$id" | head -n 1))"
+          [ -n "$id" ] && echo "  $id ($(/opt/homebrew/bin/mas info "$id" | head -n 1))"
         done <<< "$MISSING_IDS"
         exit 1
       fi
       if [ -n "$EXTRA_IDS" ]; then
         echo "Apps are installed, but not mentioned in the nix config:"
         while IFS= read -r id; do
-          [ -n "$id" ] && echo "  $id ($(${pkgs.mas}/bin/mas info "$id" | head -n 1))"
+          [ -n "$id" ] && echo "  $id ($(/opt/homebrew/bin/mas info "$id" | head -n 1))"
         done <<< "$EXTRA_IDS"
         exit 1
       fi
@@ -42,6 +42,7 @@
     '';
   in
     lib.mkIf (cfg.enable && cfg.validateMasApps) {
+      homebrew.brews = ["mas"];
       system.activationScripts.postUserActivation.text = ''
         #!${pkgs.bash}/bin/bash
         echo "Checking Mac App Store apps..."

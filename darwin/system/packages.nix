@@ -5,7 +5,6 @@
       cmake
       duti
       imagemagick
-      mas
       nil
       pkg-config
 

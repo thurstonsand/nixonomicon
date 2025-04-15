@@ -66,26 +66,24 @@
     validateMasApps = true;
     # NOTE: apps removed from this list are not uninstalled
     # a limitation of Homebrew Bundle
-    # TODO: add back in when mas starts working again
-    # > mas list
-    # > Error: No installed apps found
-    # masApps = {
-    #   "Acorn 8" = 6737921844;
-    #   "1Password for Safari" = 1569813296;
-    #   "Access" = 6469049274;
-    #   "Copilot" = 1447330651;
-    #   "Dark Reader for Safari" = 1438243180;
-    #   "Kagi for Safari" = 1622835804;
-    #   "Mela" = 1568924476;
-    #   "Parcel" = 639968404;
-    #   "Play: Save Videos Watch Later" = 1596506190;
-    #   "Save to Reader" = 1640236961;
-    #   "Telegram" = 747648890;
-    #   "TestFlight" = 899247664;
-    #   "WhatsApp" = 310633997;
-    #   "Wipr" = 1662217862; # actually Wipr 2
-    #   "WireGuard" = 1451685025;
-    #   "Xcode" = 497799835;
-    # };
+    masApps = {
+      "1Password for Safari" = 1569813296;
+      "Acorn 8" = 6737921844;
+      "Access" = 6469049274;
+      "Copilot" = 1447330651;
+      "Dark Reader for Safari" = 1438243180;
+      "Kagi for Safari" = 1622835804;
+      "Logger for Shortcuts" = 1611554653;
+      "Mela" = 1568924476;
+      "Parcel" = 639968404;
+      "Play: Save Videos Watch Later" = 1596506190;
+      "Save to Reader" = 1640236961;
+      "Telegram" = 747648890;
+      "TestFlight" = 899247664;
+      "WhatsApp" = 310633997;
+      "Wipr" = 1662217862; # actually Wipr 2
+      "WireGuard" = 1451685025;
+      "Xcode" = 497799835;
+    };
   };
 }
