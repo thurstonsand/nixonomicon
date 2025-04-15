@@ -18,11 +18,11 @@
 
     brews = [
       "llm"
-      # {
-      #   name = "rfidresearchgroup/proxmark3/proxmark3";
-      #   args = ["with-generic" "fetch-head"];
-      #   conflicts_with = ["python"];
-      # }
+      {
+        name = "rfidresearchgroup/proxmark3/proxmark3";
+        args = ["with-generic" "HEAD"];
+        conflicts_with = ["python"];
+      }
       "python"
     ];
 
