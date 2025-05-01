@@ -21,6 +21,24 @@ services:
       # https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies
       - /mnt/performance/docker/podsync/cookies.txt:/cookies.txt
     restart: unless-stopped
+
+  # pinchflat:
+  #   image: ghcr.io/kieraneglin/pinchflat:latest
+  #   container_name: pinchflat
+  #   user: 950:544
+  #   networks:
+  #     external:
+  #       ipv4_address: 192.168.5.231
+  #   ports:
+  #     - 8945:8945
+  #   environment:
+  #     - EXPOSE_FEED_ENDPOINTS=true
+  #   volumes:
+  #     - /mnt/capacity/watch/podcasts/pinchflat/downloads:/downloads
+  #     - /mnt/performance/docker/pinchflat/config:/config
+  #     - /etc/localtime:/etc/localtime:ro
+  #   restart: unless-stopped
+
 networks:
   external:
     external: true
