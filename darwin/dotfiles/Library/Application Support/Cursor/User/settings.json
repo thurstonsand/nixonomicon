@@ -37,6 +37,7 @@
     "explorer.confirmDragAndDrop": false,
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "diffEditor.codeLens": true,
+    // Cursor
     "cursor.cmdk.useThemedDiffBackground": true,
     "cursor.composer.cmdPFilePicker2": true,
     "cursor.diffs.useCharacterLevelDiffs": true,
@@ -44,6 +45,7 @@
     "cursor.general.gitGraphIndexing": "enabled",
     "window.newWindowProfile": "Default",
     "window.commandCenter": true,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
     // Python
     "[python]": {
         "editor.formatOnSave": true,
@@ -71,5 +73,13 @@
                 ]
             }
         },
-    }
+    },
+    // csv
+    "rainbow_csv.highlight_rows": true,
+    "rainbow_csv.virtual_alignment_mode": "always",
+    "rainbow_csv.csv_lint_detect_trailing_spaces": true,
+    "rainbow_csv.rbql_with_headers_by_default": true,
+    "[csv]": {
+        "editor.inlayHints.maximumLength": 0
+    },
 }

@@ -19,7 +19,7 @@
         name = "code";
         paths = [];
         postBuild = let
-          editor = "windsurf"; # Change to "cursor" to use Cursor instead
+          editor = "cursor"; # Change to "cursor" to use Cursor instead
         in ''
           mkdir -p $out/bin
           ln -s /opt/homebrew/bin/${editor} $out/bin/code

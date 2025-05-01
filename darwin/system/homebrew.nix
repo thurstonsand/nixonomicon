@@ -37,7 +37,6 @@
       "cursor"
       "discord"
       "fantastical"
-      "ghostty"
       "google-chrome"
       "google-drive"
       "mac-mouse-fix"
@@ -50,6 +49,7 @@
       "orbstack"
       "orion"
       "prusaslicer"
+      "qlmarkdown"
       "raycast"
       "rectangle-pro"
       "reflect"
@@ -58,6 +58,8 @@
       "slack"
       "steam"
       "vlc"
+      "voiceink"
+      "warp"
       "wifiman"
       "windsurf"
       "zoom"
@@ -75,6 +77,7 @@
       "Kagi for Safari" = 1622835804;
       "Logger for Shortcuts" = 1611554653;
       "Mela" = 1568924476;
+      "Orb.net" = 6477840170;
       "Parcel" = 639968404;
       "Play: Save Videos Watch Later" = 1596506190;
       "Save to Reader" = 1640236961;

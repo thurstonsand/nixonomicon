@@ -1,0 +1,8 @@
+services:
+  orb-docker:
+    image: orbforge/orb:latest
+    container_name: orb
+    network_mode: host
+    volumes:
+      - /mnt/performance/docker/orb/root/.config/orb:/root/.config/orb
+    restart: always
