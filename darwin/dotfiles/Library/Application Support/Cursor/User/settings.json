@@ -2,6 +2,7 @@
     "editor.fontFamily": "Mononoki Nerd Font, monospace",
     "editor.fontSize": 13,
     "editor.wordWrap": "on",
+    "editor.multiCursorModifier": "alt",
     "workbench.editor.wrapTabs": true,
     "editor.minimap.enabled": true,
     "files.trimFinalNewlines": true,
@@ -46,6 +47,9 @@
     "window.newWindowProfile": "Default",
     "window.commandCenter": true,
     "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "update.releaseTrack": "prerelease",
+    // cursor stats
+    "cursorStats.progressBarWarningThreshold": 80,
     // Python
     "[python]": {
         "editor.formatOnSave": true,
@@ -55,6 +59,10 @@
             "source.fixAll": "explicit"
         }
     },
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.pytestParameters": true,
+    "python.analysis.inlayHints.variableTypes": true,
     // Nix
     "nix.formatterPath": [
         "nix",

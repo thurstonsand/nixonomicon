@@ -261,7 +261,7 @@
         save = 10000;
       };
 
-      initExtra = ''
+      initContent = ''
         # Extended glob operators
         setopt EXTENDED_GLOB       # treat #, ~, and ^ as part of patterns for filename generation
 

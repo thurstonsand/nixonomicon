@@ -30,15 +30,16 @@
       "1password"
       "1password-cli"
       "arc"
+      "bazecor"
       "beeper"
       "chatgpt"
       "choosy"
       "contexts"
       "cursor"
-      "discord"
       "fantastical"
       "google-chrome"
       "google-drive"
+      "legcord"
       "mac-mouse-fix"
       "macwhisper"
       "mimestream"
@@ -58,7 +59,6 @@
       "slack"
       "steam"
       "vlc"
-      "voiceink"
       "warp"
       "wifiman"
       "windsurf"
@@ -83,7 +83,7 @@
       "Save to Reader" = 1640236961;
       "Telegram" = 747648890;
       "TestFlight" = 899247664;
-      "WhatsApp" = 310633997;
+      "WhatsApp Messenger" = 310633997;
       "Wipr" = 1662217862; # actually Wipr 2
       "WireGuard" = 1451685025;
       "Xcode" = 497799835;
