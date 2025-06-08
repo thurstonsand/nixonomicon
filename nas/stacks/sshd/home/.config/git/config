@@ -7,6 +7,12 @@
 [credential]
 	helper = "/usr/local/share/gcm-core/git-credential-manager"
 
+[credential "https://gist.github.com"]
+	helper = "/nix/store/f0ixb6s2s800c4yi89dnp2gyrsi24yz1-gh-2.74.0/bin/gh auth git-credential"
+
+[credential "https://github.com"]
+	helper = "/nix/store/f0ixb6s2s800c4yi89dnp2gyrsi24yz1-gh-2.74.0/bin/gh auth git-credential"
+
 [filter "lfs"]
 	clean = "git-lfs clean -- %f"
 	process = "git-lfs filter-process"
