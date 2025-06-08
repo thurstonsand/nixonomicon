@@ -48,6 +48,7 @@
     "window.commandCenter": true,
     "cursor.composer.shouldChimeAfterChatFinishes": true,
     "update.releaseTrack": "prerelease",
+    "cursor.composer.shouldAutoAcceptDiffs": false,
     // cursor stats
     "cursorStats.progressBarWarningThreshold": 80,
     // Python

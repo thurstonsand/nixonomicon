@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   environment = {
     pathsToLink = ["/share/zsh"];
     systemPackages = with pkgs; [
@@ -28,4 +33,14 @@
       })
     ];
   };
+  system.activationScripts.postActivation.text = lib.mkAfter ''
+    echo "Installing claude-code..."
+    sudo -u ${config.system.primaryUser} env \
+      HOME="/Users/${config.system.primaryUser}" \
+      PATH="${pkgs.nodejs}/bin:$PATH" \
+      npm_config_prefix="/Users/${config.system.primaryUser}/.npm-global" \
+      npm_config_cache="/Users/${config.system.primaryUser}/.npm" \
+      npm_config_userconfig="/Users/${config.system.primaryUser}/.npmrc" \
+      ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code
+  '';
 }

@@ -6,6 +6,7 @@ in {
   networking.computerName = hostname;
   system.defaults.smb.NetBIOSName = hostname;
 
+  system.primaryUser = username;
   users.users.${username} = {
     home = "/Users/${username}";
     description = username;

@@ -4,6 +4,7 @@ in {
   home = {
     username = username;
     homeDirectory = "/Users/${username}";
+    sessionPath = ["$HOME/.npm-global/bin"];
 
     # home files
     file = {
@@ -46,12 +47,18 @@ in {
       "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
     };
 
-    ssh.extraConfig = ''IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+    ssh = {
+      includes = [
+        "~/.ssh/1Password/config"
+      ];
+
+      extraConfig = ''IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
+    };
 
     zsh.shellAliases = {
       bd = "brew desc";
       bh = "brew home";
-      switch = "darwin-rebuild switch --flake /Users/thurstonsand/Develop/nixonomicon";
+      switch = "sudo darwin-rebuild switch --flake /Users/thurstonsand/Develop/nixonomicon";
     };
   };
 }

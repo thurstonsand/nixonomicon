@@ -65,6 +65,19 @@ services:
       - PGID=544
     restart: unless-stopped
 
+  huntarr:
+    image: huntarr/huntarr:latest
+    container_name: huntarr
+    networks:
+      personal:
+        ipv4_address: 192.168.6.237
+    ports:
+      - "9705:9705"
+    volumes:
+      - /mnt/performance/docker/arr-apps/huntarr/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr
     container_name: recyclarr

@@ -37,7 +37,7 @@
       "contexts"
       "cursor"
       "fantastical"
-      "google-chrome"
+      "google-chrome@beta"
       "google-drive"
       "legcord"
       "mac-mouse-fix"

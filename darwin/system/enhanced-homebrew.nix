@@ -43,7 +43,7 @@
   in
     lib.mkIf (cfg.enable && cfg.validateMasApps) {
       homebrew.brews = ["mas"];
-      system.activationScripts.postUserActivation.text = ''
+      system.activationScripts.postActivation.text = lib.mkAfter ''
         #!${pkgs.bash}/bin/bash
         echo "Checking Mac App Store apps..."
         ${checkMASApps}
