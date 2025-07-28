@@ -1,10 +1,17 @@
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   username = "thurstonsand";
 in {
   home = {
     username = username;
     homeDirectory = "/Users/${username}";
-    sessionPath = ["$HOME/.npm-global/bin"];
+    sessionPath = ["$HOME/.npm-global/bin" "$HOME/.opencode/bin"];
+    sessionVariables = {
+      EDITOR = "code --wait";
+    };
 
     # home files
     file = {
@@ -42,6 +49,33 @@ in {
     };
   };
 
+  # Configure default applications using duti
+  home.activation.setDefaultApps = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    # Set Cursor as default for text files
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .txt all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .md all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .json all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .js all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .ts all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .tsx all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .jsx all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .py all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .rb all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .go all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .rs all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .toml all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .yaml all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .yml all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .xml all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .css all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .sh all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .bash all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .zsh all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 .nix all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 public.plain-text all
+    ${pkgs.duti}/bin/duti -s com.todesktop.230313mzl4w4u92 public.source-code all
+  '';
+
   programs = {
     git.extraConfig = {
       "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
@@ -58,6 +92,7 @@ in {
     zsh.shellAliases = {
       bd = "brew desc";
       bh = "brew home";
+      opencode = "/Users/thurstonsand/.opencode/bin/opencode";
       switch = "sudo darwin-rebuild switch --flake /Users/thurstonsand/Develop/nixonomicon";
     };
   };

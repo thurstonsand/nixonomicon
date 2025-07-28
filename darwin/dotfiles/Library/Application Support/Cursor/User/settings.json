@@ -25,6 +25,7 @@
     "git.terminalGitEditor": true,
     "github.gitProtocol": "ssh",
     "merge-conflict.autoNavigateNextConflict.enabled": true,
+    "explorer.confirmPasteNative": false,
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "git.confirmSync": false,

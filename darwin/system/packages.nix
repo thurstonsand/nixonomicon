@@ -34,13 +34,13 @@
     ];
   };
   system.activationScripts.postActivation.text = lib.mkAfter ''
-    echo "Installing claude-code..."
-    sudo -u ${config.system.primaryUser} env \
-      HOME="/Users/${config.system.primaryUser}" \
+    echo "Installing global node packages..."
+    sudo -u ${config.system.primaryUser} sh -c '
       PATH="${pkgs.nodejs}/bin:$PATH" \
-      npm_config_prefix="/Users/${config.system.primaryUser}/.npm-global" \
-      npm_config_cache="/Users/${config.system.primaryUser}/.npm" \
-      npm_config_userconfig="/Users/${config.system.primaryUser}/.npmrc" \
-      ${pkgs.nodejs}/bin/npm install -g @anthropic-ai/claude-code
+      ${pkgs.nodejs}/bin/npm install -g @google/gemini-cli \
+        --prefix="/Users/${config.system.primaryUser}/.npm-global" \
+        --cache="/Users/${config.system.primaryUser}/.npm" \
+        --userconfig="/Users/${config.system.primaryUser}/.npmrc"
+    '
   '';
 }

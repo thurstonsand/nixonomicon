@@ -92,7 +92,7 @@
     gh = {
       enable = true;
       settings = {
-        editor = "vim";
+        editor = "code --wait";
         git_protocol = "ssh";
       };
     };
@@ -101,35 +101,68 @@
 
     jq.enable = true;
 
-    # git-crypt not supported, so leaving this alone for now
-    # jujutsu = {
-    #   enable = true;
-    #   settings = {
-    #     user = {
-    #       name = "Thurston Sandberg";
-    #       email = "thurstonsand@gmail.com";
-    #     };
-    #     ui = {
-    #       editor = "vim";
-    #     };
-    #     fix.tools."1-nix-fmt" = {
-    #       command = "nix fmt";
-    #       patterns = ["**/*.nix"];
-    #     };
-    #     signing = {
-    #       sign-all = true;
-    #       backend = "ssh";
-    #       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6GpY+hdZp60Fbnk9B03sntiJRx7OgLwutV5vJpV6P+";
-    #       # TODO: this is a mac-only setting, so needs to be moved there
-    #       backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-    #     };
-    #     git = {
-    #       sign-on-push = true;
-    #       auto-local-bookmark = true;
-    #       private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
-    #     };
-    #   };
-    # };
+    # WARNING: git-crypt not supported
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "Thurston Sandberg";
+          email = "thurstonsand@gmail.com";
+        };
+        ui = {
+          editor = "code --wait";
+          # Use the tool defined in [merge-tools] below for interactive sessions
+          diff-editor = "code";
+          merge-editor = "code";
+          graph.style = "curved"; # Valid: "curved", "square", "ascii", "ascii-large"
+          movement.edit = true;
+        };
+
+        # Aliases for common stack operations
+        aliases = {
+          # Show just your current stack
+          stack = ["log" "-r" "::@ & ~::main"];
+          # Go to root of current stack
+          bottom = ["edit" "roots(::@ & ~::main)"];
+          # Show what would be pushed for a branch
+          preview = ["log" "-r" "::@" "--git"];
+        };
+
+        merge-tools.code = {
+          program = "code";
+          # Args for `jj split`, `jj squash -i`, etc.
+          edit-args = ["--wait" "--diff" "$left" "$right"];
+          # Args for `jj resolve`
+          merge-args = ["--wait" "--merge" "$left" "$right" "$base" "$output"];
+        };
+
+        signing = {
+          behavior = "drop";
+          backend = "ssh";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6GpY+hdZp60Fbnk9B03sntiJRx7OgLwutV5vJpV6P+";
+          # TODO: this is a mac-only setting, so needs to be moved there
+          backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        };
+
+        git = {
+          sign-on-push = true;
+          auto-local-bookmark = true;
+          private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
+        };
+
+        # Custom log output formatting
+        templates = {
+          log_node = ''
+            coalesce(
+              if(!self, label("elided", "~")),
+              label(if(current_working_copy, "working_copy"),
+                if(conflict, label("conflict", "×"), "◉")
+              ),
+            )
+          '';
+        };
+      };
+    };
 
     nix-index = {
       enable = true;
@@ -269,6 +302,7 @@
         save = 10000;
       };
 
+      defaultKeymap = "emacs";
       initContent = ''
         # Extended glob operators
         setopt EXTENDED_GLOB       # treat #, ~, and ^ as part of patterns for filename generation
@@ -279,8 +313,9 @@
         # Job Control
         setopt NOTIFY              # report the status of background jobs immediately
 
-        # Key bindings
-        # bindkey "^[[3~" delete-char
+        # Extra key bindings
+        bindkey "^[[3~" delete-char
+        bindkey "^[[3;9~" kill-line
       '';
 
       shellAliases = {

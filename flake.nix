@@ -74,7 +74,7 @@
                   users.thurstonsand = {
                     imports = [
                       inputs.nvchad4nix.homeManagerModule
-                      nix-index-database.hmModules.nix-index
+                      nix-index-database.homeModules.nix-index
                       (import ./common/home.nix)
                       (import ./nas/home.nix)
                     ];
@@ -101,7 +101,7 @@
                   users.thurstonsand = {
                     imports = [
                       inputs.nvchad4nix.homeManagerModule
-                      nix-index-database.hmModules.nix-index
+                      nix-index-database.homeModules.nix-index
                       (import ./common/home.nix)
                       (import ./darwin/home.nix)
                     ];
@@ -119,7 +119,7 @@
               config.allowUnfree = true;
             };
             modules = [
-              nix-index-database.hmModules.nix-index
+              nix-index-database.homeModules.nix-index
               ./common/home.nix
               ./truenas-shell/home.nix
             ];
@@ -129,7 +129,7 @@
               {
                 nixpkgs.overlays = [nur.overlay];
               }
-              nix-index-database.hmModules.nix-index
+              nix-index-database.homeModules.nix-index
               ./common/home.nix
               ./steamdeck/home.nix
             ];

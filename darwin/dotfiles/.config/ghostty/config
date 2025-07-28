@@ -25,3 +25,4 @@ theme = dark:catppuccin-mocha,light:catppuccin-latte
 
 keybind = global:cmd+shift+`=toggle_quick_terminal
 keybind = cmd+enter=ignore
+keybind = shift+enter=text:\n

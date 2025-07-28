@@ -14,6 +14,7 @@
     taps = [
       "domt4/autoupdate"
       "rfidresearchgroup/proxmark3"
+      "sst/tap"
     ];
 
     brews = [
@@ -34,9 +35,13 @@
       "beeper"
       "chatgpt"
       "choosy"
+      "claude"
+      "clay"
       "contexts"
       "cursor"
+      "elgato-control-center"
       "fantastical"
+      "ghostty"
       "google-chrome@beta"
       "google-drive"
       "legcord"
@@ -71,7 +76,7 @@
     masApps = {
       "1Password for Safari" = 1569813296;
       "Acorn 8" = 6737921844;
-      "Access" = 6469049274;
+      "Access: Private Vault" = 6469049274;
       "Copilot" = 1447330651;
       "Dark Reader for Safari" = 1438243180;
       "Kagi for Safari" = 1622835804;
@@ -80,6 +85,7 @@
       "Orb.net" = 6477840170;
       "Parcel" = 639968404;
       "Play: Save Videos Watch Later" = 1596506190;
+      "Poolsuite FM" = 1514817810;
       "Save to Reader" = 1640236961;
       "Telegram" = 747648890;
       "TestFlight" = 899247664;
