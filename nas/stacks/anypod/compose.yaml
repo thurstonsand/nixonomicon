@@ -1,0 +1,36 @@
+services:
+  anypod:
+    image: ghcr.io/thurstonsand/anypod:nightly
+    container_name: anypod
+    init: true
+    # networks:
+    #   external:
+    #     ipv4_address: 192.168.5.231
+    ports:
+      - "8024:8024"
+    volumes:
+      - /mnt/performance/docker/anypod/config/feeds.yaml:/config/feeds.yaml
+      - /mnt/capacity/watch/anypod/data:/data
+      - /mnt/performance/docker/anypod/cookies/cookies.txt:/cookies/cookies.txt
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    environment:
+      # User/Group
+      PUID: 950
+      PGID: 544
+
+      # Logging configuration
+      LOG_FORMAT: json
+      LOG_LEVEL: DEBUG
+      LOG_INCLUDE_STACKTRACE: true
+
+      # Server configuration
+      SERVER_PORT: 8024
+      # BASE_URL: https://anypod.thurstons.house
+      # TRUSTED_PROXIES: '["192.168.1.0/24", "192.168.5.225"]'
+
+      COOKIES_PATH: /cookies/cookies.txt
+
+# networks:
+#   external:
+#     external: true
