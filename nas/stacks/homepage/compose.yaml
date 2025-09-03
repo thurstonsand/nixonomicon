@@ -36,6 +36,7 @@ services:
       PGID: 544
       PORT: 80
       HOMEPAGE_ALLOWED_HOSTS: dash.thurstons.house,dash.thurstons.house:80
+    user: 950:544
     depends_on:
       - homepage-docker-socket-proxy
     restart: unless-stopped
