@@ -29,10 +29,10 @@ in {
         recursive = true;
         force = true;
       };
-      "Library/Application Support/Cursor/User/settings.json" = {
-        source = ./dotfiles/Library/${"Application Support"}/Cursor/User/settings.json;
-        force = true;
-      };
+      #   "Library/Application Support/Cursor/User/settings.json" = {
+      #     source = ./dotfiles/Library/${"Application Support"}/Cursor/User/settings.json;
+      #     force = true;
+      #   };
     };
   };
   xdg.configFile = {

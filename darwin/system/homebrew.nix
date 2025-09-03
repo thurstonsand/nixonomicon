@@ -17,14 +17,16 @@
       "sst/tap"
     ];
 
+    # more up-to-date or available versions
     brews = [
       "llm"
+      "ffmpeg"
       {
         name = "rfidresearchgroup/proxmark3/proxmark3";
         args = ["with-generic" "HEAD"];
         conflicts_with = ["python"];
       }
-      "python"
+      "python" # dependency for proxmark3
     ];
 
     casks = [
@@ -39,11 +41,15 @@
       "clay"
       "contexts"
       "cursor"
+      "elgato-camera-hub"
       "elgato-control-center"
       "fantastical"
       "ghostty"
       "google-chrome@beta"
       "google-drive"
+      "iina"
+      "insta360-link-controller"
+      "kiro"
       "legcord"
       "mac-mouse-fix"
       "macwhisper"
@@ -63,7 +69,6 @@
       "setapp"
       "slack"
       "steam"
-      "vlc"
       "warp"
       "wifiman"
       "windsurf"

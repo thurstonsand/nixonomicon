@@ -2,7 +2,8 @@
   home = {
     packages = with pkgs; [
       ack
-      ffmpeg
+      # does not have all encoders enabled -- homebrew version does
+      # ffmpeg-full
       fh
       git-credential-manager
       git-crypt
@@ -204,11 +205,16 @@
 
     ssh = {
       enable = true;
-
-      serverAliveInterval = 60;
-      serverAliveCountMax = 3;
+      enableDefaultConfig = false;
 
       matchBlocks = {
+        "*" = {
+          serverAliveInterval = 60;
+          serverAliveCountMax = 3;
+          addKeysToAgent = "no";
+          hashKnownHosts = false;
+        };
+
         "nix" = {
           hostname = "nix.thurstons.house";
           user = "thurstonsand";
@@ -277,6 +283,13 @@
       extraConfig = builtins.readFile ./dotfiles/.vimrc;
     };
 
+    # yt-dlp = {
+    #   enable = true;
+    #   settings = {
+    #     update = true;
+    #   };
+    # };
+
     zsh = {
       enable = true;
       autosuggestion.enable = true;
@@ -315,7 +328,8 @@
 
         # Extra key bindings
         bindkey "^[[3~" delete-char
-        bindkey "^[[3;9~" kill-line
+        # bindkey "^[[3;9~" kill-line
+        bindkey "^U" backward-kill-line
       '';
 
       shellAliases = {

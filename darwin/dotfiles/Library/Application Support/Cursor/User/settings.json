@@ -23,6 +23,7 @@
     "git.defaultCloneDirectory": "/Users/thurstonsand/Develop",
     "git.terminalAuthentication": false,
     "git.terminalGitEditor": true,
+    "git.openRepositoryInParentFolders": "always",
     "github.gitProtocol": "ssh",
     "merge-conflict.autoNavigateNextConflict.enabled": true,
     "explorer.confirmPasteNative": false,
@@ -40,7 +41,6 @@
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "diffEditor.codeLens": true,
     // Cursor
-    "cursor.cmdk.useThemedDiffBackground": true,
     "cursor.composer.cmdPFilePicker2": true,
     "cursor.diffs.useCharacterLevelDiffs": true,
     "cursor.general.enableShadowWorkspace": true,
