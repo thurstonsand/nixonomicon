@@ -9,6 +9,7 @@ description: Create a git commit
 - Current branch: !`git branch --show-current`
 - Recent commits: !`git log --oneline -10`
 - Do not stage any additional files (ignore anything unstaged)
+- There is a git commit hook that will run the `alejandra` nix formatter; if this fails, the git commit will not succeed; add any modified files and try re-running the commit
 
 ## Your task
 

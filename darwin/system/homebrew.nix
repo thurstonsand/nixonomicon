@@ -23,7 +23,10 @@
       "ffmpeg"
       {
         name = "rfidresearchgroup/proxmark3/proxmark3";
-        args = ["with-generic" "HEAD"];
+        args = [
+          "with-generic"
+          "HEAD"
+        ];
         conflicts_with = ["python"];
       }
       "python" # dependency for proxmark3
@@ -56,7 +59,6 @@
       "mimestream"
       "moonlight"
       "mqtt-explorer"
-      "msty"
       "obsidian"
       "orbstack"
       "orion"
@@ -65,13 +67,13 @@
       "raycast"
       "rectangle-pro"
       "reflect"
-      "replacicon"
       "setapp"
       "slack"
       "steam"
       "warp"
       "wifiman"
       "windsurf"
+      "zed"
       "zoom"
     ];
 
@@ -89,6 +91,7 @@
       "Mela" = 1568924476;
       "Orb.net" = 6477840170;
       "Parcel" = 639968404;
+      "Perplexity: Ask Anything" = 6714467650;
       "Play: Save Videos Watch Later" = 1596506190;
       "Poolsuite FM" = 1514817810;
       "Save to Reader" = 1640236961;

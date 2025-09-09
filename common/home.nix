@@ -9,6 +9,7 @@
       git-crypt
       git-trim
       just
+      nixd
       nextdns
       nix-inspect
       nix-prefetch-github
@@ -40,6 +41,11 @@
     bat.enable = true;
 
     btop.enable = true;
+
+    bun = {
+      enable = true;
+      enableGitIntegration = true;
+    };
 
     direnv = {
       enable = true;
@@ -122,19 +128,43 @@
         # Aliases for common stack operations
         aliases = {
           # Show just your current stack
-          stack = ["log" "-r" "::@ & ~::main"];
+          stack = [
+            "log"
+            "-r"
+            "::@ & ~::main"
+          ];
           # Go to root of current stack
-          bottom = ["edit" "roots(::@ & ~::main)"];
+          bottom = [
+            "edit"
+            "roots(::@ & ~::main)"
+          ];
           # Show what would be pushed for a branch
-          preview = ["log" "-r" "::@" "--git"];
+          preview = [
+            "log"
+            "-r"
+            "::@"
+            "--git"
+          ];
         };
 
         merge-tools.code = {
           program = "code";
           # Args for `jj split`, `jj squash -i`, etc.
-          edit-args = ["--wait" "--diff" "$left" "$right"];
+          edit-args = [
+            "--wait"
+            "--diff"
+            "$left"
+            "$right"
+          ];
           # Args for `jj resolve`
-          merge-args = ["--wait" "--merge" "$left" "$right" "$base" "$output"];
+          merge-args = [
+            "--wait"
+            "--merge"
+            "$left"
+            "$right"
+            "$base"
+            "$output"
+          ];
         };
 
         signing = {
@@ -176,11 +206,13 @@
       enable = true;
       extraPackages = with pkgs; [
         nodePackages.bash-language-server
-        (python3.withPackages (ps:
-          with ps; [
-            python-lsp-server
-            flake8
-          ]))
+        (python3.withPackages (
+          ps:
+            with ps; [
+              python-lsp-server
+              flake8
+            ]
+        ))
       ];
 
       chadrcConfig = ''
@@ -278,7 +310,10 @@
 
     vim = {
       enable = true;
-      plugins = with pkgs.vimPlugins; [vim-nix vim-lastplace];
+      plugins = with pkgs.vimPlugins; [
+        vim-nix
+        vim-lastplace
+      ];
       defaultEditor = false; # try to use neovim instead
       extraConfig = builtins.readFile ./dotfiles/.vimrc;
     };
@@ -335,6 +370,7 @@
       shellAliases = {
         "ping" = "prettyping";
         "top" = "htop";
+        "codex" = "codex --search";
       };
     };
 

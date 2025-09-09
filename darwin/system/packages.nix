@@ -36,8 +36,10 @@
   system.activationScripts.postActivation.text = lib.mkAfter ''
     echo "Installing global node packages..."
     sudo -u ${config.system.primaryUser} sh -c '
+      export HOME="/Users/${config.system.primaryUser}"
+      export XDG_CACHE_HOME="/Users/${config.system.primaryUser}/.cache"
       PATH="${pkgs.nodejs}/bin:$PATH" \
-      ${pkgs.nodejs}/bin/npm install -g @google/gemini-cli @openai/codex\
+      ${pkgs.nodejs}/bin/npm install -g @google/gemini-cli @openai/codex @musistudio/claude-code-router\
         --prefix="/Users/${config.system.primaryUser}/.npm-global" \
         --cache="/Users/${config.system.primaryUser}/.npm" \
         --userconfig="/Users/${config.system.primaryUser}/.npmrc"
