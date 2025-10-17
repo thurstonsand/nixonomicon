@@ -1,6 +1,4 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# AI Instructions
 
 ## Repository Overview
 
@@ -72,7 +70,4 @@ When working in this repository:
 ## Important Context
 
 - Primary user: `thurstonsand`
-- Editor setup: Cursor/VS Code with Nix language support
-- Shell: Zsh with extensive customizations
-- Git: Integrated with 1Password for SSH signing
 - Systems: Supports both aarch64-darwin (Apple Silicon) and x86_64-linux
