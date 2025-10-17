@@ -35,11 +35,11 @@
     casks = [
       "1password"
       "1password-cli"
-      "arc"
+      "aqua-voice"
       "bazecor"
       "beeper"
       "chatgpt"
-      "choosy"
+      # "choosy"
       "claude"
       "clay"
       "contexts"
@@ -51,14 +51,13 @@
       "google-chrome@beta"
       "google-drive"
       "iina"
-      "insta360-link-controller"
-      "kiro"
       "legcord"
+      "localsend"
       "mac-mouse-fix"
-      "macwhisper"
+      # "macwhisper"
       "mimestream"
       "moonlight"
-      "mqtt-explorer"
+      # "mqtt-explorer"
       "obsidian"
       "orbstack"
       "orion"
@@ -66,13 +65,13 @@
       "qlmarkdown"
       "raycast"
       "rectangle-pro"
-      "reflect"
+      # "reflect"
       "setapp"
       "slack"
       "steam"
       "warp"
       "wifiman"
-      "windsurf"
+      # "windsurf"
       "zed"
       "zoom"
     ];
@@ -83,24 +82,29 @@
     masApps = {
       "1Password for Safari" = 1569813296;
       "Acorn 8" = 6737921844;
-      "Access: Private Vault" = 6469049274;
       "Copilot" = 1447330651;
-      "Dark Reader for Safari" = 1438243180;
+      "Infuse" = 1136220934;
       "Kagi for Safari" = 1622835804;
+      "Keepa - Price Tracker" = 1533805339;
+      "Keyword Search" = 1558453954;
       "Logger for Shortcuts" = 1611554653;
       "Mela" = 1568924476;
-      "Orb.net" = 6477840170;
-      "Parcel" = 639968404;
+      "Noir – Dark Mode for Safari" = 1592917505;
+      "Obsidian Web Clipper" = 6720708363;
+      "Parcel" = 375589283;
       "Perplexity: Ask Anything" = 6714467650;
       "Play: Save Videos Watch Later" = 1596506190;
       "Poolsuite FM" = 1514817810;
-      "Save to Reader" = 1640236961;
+      "Raycast Companion" = 6738274497;
+      "Remind Me Faster" = 985555908;
+      # "Save to Reader" = 1640236961;
+      "SponsorBlock for Safari" = 1573461917;
       "Telegram" = 747648890;
       "TestFlight" = 899247664;
+      "Uplock" = 6469049274;
       "WhatsApp Messenger" = 310633997;
       "Wipr" = 1662217862; # actually Wipr 2
-      "WireGuard" = 1451685025;
-      "Xcode" = 497799835;
+      # "Xcode" = 497799835;
     };
   };
 }
