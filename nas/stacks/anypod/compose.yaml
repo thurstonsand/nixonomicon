@@ -2,6 +2,7 @@ services:
   anypod:
     image: ghcr.io/thurstonsand/anypod:nightly
     container_name: anypod
+    restart: unless-stopped
     init: true
     networks:
       external:
@@ -13,7 +14,6 @@ services:
       - /mnt/capacity/watch/anypod/data:/data
       - /mnt/performance/docker/anypod/cookies/cookies.txt:/cookies/cookies.txt
       - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
     environment:
       # User/Group
       PUID: 950
@@ -27,6 +27,21 @@ services:
       BASE_URL: https://anypod.thurstons.house
       TRUSTED_PROXIES: '["192.168.1.0/24", "192.168.5.225"]'
       COOKIES_PATH: /cookies/cookies.txt
+      POT_PROVIDER_URL: http://192.168.5.232:4416
+      YT_CHANNEL: nightly
+    depends_on:
+      - bgutil-pot-provider
+
+  bgutil-pot-provider:
+    image: brainicism/bgutil-ytdlp-pot-provider:latest
+    container_name: bgutil-pot-provider
+    restart: unless-stopped
+    networks:
+      external:
+        ipv4_address: 192.168.5.232
+    ports:
+      - "4416:4416"
+
 networks:
   external:
     external: true
