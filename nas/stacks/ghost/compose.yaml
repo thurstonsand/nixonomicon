@@ -15,7 +15,8 @@ services:
       - /mnt/capacity/watch/ghost/var/lib/ghost/content:/var/lib/ghost/content
       - /mnt/performance/home/admin/Develop/nixonomicon/nas/stacks/ghost/entrypoint-admin.sh:/custom-entrypoint-admin.sh:ro
     depends_on:
-      - ghost_mysql
+      ghost_mysql:
+        condition: service_healthy
     environment:
       url: "https://blog.thurstons.house"
       mail__transport: SMTP
@@ -23,13 +24,13 @@ services:
       mail__options__port: 587
       mail__options__secureConnection: false
       mail__options__auth__user: "thurstonsand@icloud.com"
-      mail__options__auth__pass: "xgap-pyyv-gttl-cljm"
+      mail__options__auth__pass: "${MAIL_AUTH_PASS}"
       mail__from: "notifications@thurstons.house"
       database__client: mysql
       database__connection__host: 192.168.5.234
       database__connection__database: ghostdb
       database__connection__user: ghostuser
-      database__connection__password: "E4j3dPqxJ_q@Rsyp.w@M"
+      database__connection__password: "${DB_PASSWORD}"
 
   ghost_mysql:
     image: mysql:8
@@ -45,10 +46,16 @@ services:
       - /mnt/capacity/watch/ghost_mysql/var/lib/mysql:/var/lib/mysql
       - /mnt/performance/home/admin/Develop/nixonomicon/nas/stacks/ghost/conf/my.cnf:/etc/my.cnf:ro
     environment:
-      MYSQL_ROOT_PASSWORD: "vs*s*7ByP9rLE2.r32dw"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       MYSQL_DATABASE: "ghostdb"
       MYSQL_USER: "ghostuser"
-      MYSQL_PASSWORD: "E4j3dPqxJ_q@Rsyp.w@M"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
 networks:
   external:
