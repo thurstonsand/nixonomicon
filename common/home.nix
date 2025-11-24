@@ -1,7 +1,10 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  npxAlias = pkg: "npx ${pkg}";
+in {
   home = {
     packages = with pkgs; [
       ack
+      deno
       # does not have all encoders enabled -- homebrew version does
       # ffmpeg-full
       fh
@@ -9,6 +12,7 @@
       git-crypt
       git-trim
       just
+      lazygit
       nixd
       nextdns
       nix-inspect
@@ -21,6 +25,7 @@
       restic
       storj-uplink
       tldr
+      tree
       unzip
     ];
     stateVersion = "23.05";
@@ -76,14 +81,17 @@
         ".cache"
         ".nix"
       ];
-      userName = "Thurston Sandberg";
-      userEmail = "thurstonsand@gmail.com";
       signing = {
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF6GpY+hdZp60Fbnk9B03sntiJRx7OgLwutV5vJpV6P+";
         signByDefault = true;
       };
       lfs.enable = true;
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Thurston Sandberg";
+          email = "thurstonsand@gmail.com";
+        };
+        alias.pushf = "push --force-with-lease";
         color.ui = "auto";
         credential.helper = "/usr/local/share/gcm-core/git-credential-manager";
         gpg.format = "ssh";
@@ -93,6 +101,7 @@
           default = "simple";
           autoSetupRemote = true;
         };
+        rebase.autoStash = true;
       };
     };
 
@@ -368,9 +377,11 @@
       '';
 
       shellAliases = {
-        "ping" = "prettyping";
-        "top" = "htop";
-        "codex" = "codex --search";
+        ping = "prettyping";
+        top = "htop";
+        codex = npxAlias "@openai/codex";
+        gemini = npxAlias "@google/gemini-cli";
+        openskills = npxAlias "openskills";
       };
     };
 

@@ -8,22 +8,26 @@ in {
   home = {
     username = username;
     homeDirectory = "/Users/${username}";
-    sessionPath = ["$HOME/.npm-global/bin" "$HOME/.opencode/bin"];
+    sessionPath = [
+      "$HOME/.npm-global/bin"
+      "$HOME/.opencode/bin"
+      "$(/opt/homebrew/bin/brew --prefix rustup)/bin"
+    ];
     sessionVariables = {
       EDITOR = "code --wait";
     };
 
     # home files
     file = {
-      ".codeium/windsurf/memories/global_rules.md" = {
-        source = ./dotfiles/.codeium/windsurf/memories/global_rules.md;
-        force = true;
-      };
-      "Library/Application Support/Windsurf/User" = {
-        source = ./dotfiles/Library/${"Application Support"}/Windsurf/User;
-        recursive = true;
-        force = true;
-      };
+      # ".codeium/windsurf/memories/global_rules.md" = {
+      #   source = ./dotfiles/.codeium/windsurf/memories/global_rules.md;
+      #   force = true;
+      # };
+      # "Library/Application Support/Windsurf/User" = {
+      #   source = ./dotfiles/Library/${"Application Support"}/Windsurf/User;
+      #   recursive = true;
+      #   force = true;
+      # };
       "Library/Application Support/Storj/Uplink" = {
         source = ../common/platform_dependent_dotfiles/storj-uplink;
         recursive = true;
@@ -77,7 +81,7 @@ in {
   '';
 
   programs = {
-    git.extraConfig = {
+    git.settings = {
       "gpg \"ssh\"".program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
     };
 

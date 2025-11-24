@@ -15,10 +15,12 @@
       "domt4/autoupdate"
       "rfidresearchgroup/proxmark3"
       "sst/tap"
+      "nikitabobko/tap"
     ];
 
     # more up-to-date or available versions
     brews = [
+      "cliproxyapi"
       "llm"
       "ffmpeg"
       {
@@ -30,11 +32,13 @@
         conflicts_with = ["python"];
       }
       "python" # dependency for proxmark3
+      "rustup-init"
     ];
 
     casks = [
       "1password"
       "1password-cli"
+      # "aerospace"
       "aqua-voice"
       "bazecor"
       "beeper"
@@ -48,14 +52,15 @@
       "elgato-control-center"
       "fantastical"
       "ghostty"
-      "google-chrome@beta"
-      "google-drive"
+      "google-chrome"
+      # "google-drive" # Deprecated somehow?
       "iina"
       "legcord"
       "localsend"
       "mac-mouse-fix"
       # "macwhisper"
       "mimestream"
+      "monodraw"
       "moonlight"
       # "mqtt-explorer"
       "obsidian"
@@ -69,9 +74,11 @@
       "setapp"
       "slack"
       "steam"
+      "tabtab"
+      "visual-studio-code"
       "warp"
       "wifiman"
-      # "windsurf"
+      "windsurf"
       "zed"
       "zoom"
     ];
@@ -98,7 +105,9 @@
       "Raycast Companion" = 6738274497;
       "Remind Me Faster" = 985555908;
       # "Save to Reader" = 1640236961;
+      "Spokenly: Voice to Text AI" = 6740315592;
       "SponsorBlock for Safari" = 1573461917;
+      "Tailscale" = 1475387142;
       "Telegram" = 747648890;
       "TestFlight" = 899247664;
       "Uplock" = 6469049274;
