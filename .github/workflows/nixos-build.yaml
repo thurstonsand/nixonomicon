@@ -64,7 +64,7 @@ jobs:
             echo "HISTFILE=$(nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.programs.zsh.history.path')"
             echo
             echo "# Shell options and initialization"
-            nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file.".zshrc".text' | grep -E '^[[:space:]]*(set|unset)opt' | grep -v '/nix/store\|/etc/profiles'
+            nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.zshrc".text' | grep -E '^[[:space:]]*(set|unset)opt' | grep -v '/nix/store\|/etc/profiles'
             echo
             echo "# Program Inits"
             echo 'eval "$(fzf --zsh)"'

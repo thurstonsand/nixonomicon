@@ -132,3 +132,12 @@ resource "cloudflare_record" "apple_domain" {
   proxied = false
   ttl     = 3600
 }
+
+resource "cloudflare_record" "google_site_verification" {
+  zone_id = var.zone_id
+  name    = local.zone_name
+  type    = "TXT"
+  content = "\"google-site-verification=o2s0lNQ-10v7zV-UMJDRa3wszc6ZQP6nRNtl_mM4y9U\""
+  proxied = false
+  ttl     = 3600
+}
