@@ -1,3 +1,6 @@
+[alias]
+	pushf = "push --force-with-lease"
+
 [color]
 	ui = "auto"
 
@@ -5,13 +8,19 @@
 	gpgSign = true
 
 [credential]
-	helper = "/usr/local/share/gcm-core/git-credential-manager"
+	helper = "/nix/store/8ysvkvyj31gn5x2raqmjapakmmq6gwa7-git-credential-manager-2.6.1/bin/git-credential-manager"
 
 [credential "https://gist.github.com"]
-	helper = "/nix/store/f0ixb6s2s800c4yi89dnp2gyrsi24yz1-gh-2.74.0/bin/gh auth git-credential"
+	helper = ""
+	helper = "/nix/store/y12yx7z4g4a3jbzh28h6yrpvcf6px5kl-gh-2.83.1/bin/gh auth git-credential"
 
 [credential "https://github.com"]
-	helper = "/nix/store/f0ixb6s2s800c4yi89dnp2gyrsi24yz1-gh-2.74.0/bin/gh auth git-credential"
+	helper = ""
+	helper = "/nix/store/y12yx7z4g4a3jbzh28h6yrpvcf6px5kl-gh-2.83.1/bin/gh auth git-credential"
+
+[diff "lockb"]
+	binary = true
+	textconv = "/nix/store/s1mc2ixfn25y7c6gg1ghp1v0qg2h34dg-bun-1.3.3/bin/bun"
 
 [filter "lfs"]
 	clean = "git-lfs clean -- %f"
@@ -33,6 +42,9 @@
 [push]
 	autoSetupRemote = true
 	default = "simple"
+
+[rebase]
+	autoStash = true
 
 [tag]
 	gpgSign = true
