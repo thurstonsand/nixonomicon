@@ -1,0 +1,88 @@
+# Loki Alert Rules for Container Logs
+# Deploy to: /mnt/performance/docker/grafana/loki/rules/fake/container-alerts.yaml
+# Note: The "fake" directory is required for single-tenant mode
+
+groups:
+  - name: container_error_alerts
+    interval: 1m
+    rules:
+      # Alert on any ERROR level logs
+      - alert: ContainerErrors
+        expr: |
+          sum by (container, compose_project) (
+            count_over_time({job="docker"} |~ "(?i)(error|exception|failed|failure)" [5m])
+          ) > 5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Errors detected in {{ $labels.container }}"
+          description: "Container {{ $labels.container }} has logged {{ $value }} errors in the last 5 minutes"
+
+      # Alert on critical/fatal logs
+      - alert: ContainerCritical
+        expr: |
+          count_over_time({job="docker"} |~ "(?i)(fatal|panic|critical|crash)" [5m]) > 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical error in {{ $labels.container }}"
+          description: "Container {{ $labels.container }} logged a critical/fatal error"
+
+      # Alert on OOM (Out of Memory)
+      - alert: ContainerOOM
+        expr: |
+          count_over_time({job="docker"} |~ "(?i)(out of memory|oom|killed)" [10m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "OOM detected in {{ $labels.container }}"
+          description: "Container {{ $labels.container }} may have been OOM killed"
+
+      # Alert on connection errors (database, API, etc.)
+      - alert: ConnectionErrors
+        expr: |
+          sum by (container) (
+            count_over_time({job="docker"} |~ "(?i)(connection refused|connection reset|timeout|ECONNREFUSED)" [5m])
+          ) > 3
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Connection errors in {{ $labels.container }}"
+          description: "Container {{ $labels.container }} is experiencing connection issues"
+
+  - name: container_availability
+    interval: 2m
+    rules:
+      # Alert if a container stops logging (might indicate it's down)
+      - alert: ContainerSilent
+        expr: |
+          count by (container) (
+            count_over_time({job="docker", container!=""} [30m])
+          ) == 0
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "No logs from {{ $labels.container }}"
+          description: "Container {{ $labels.container }} hasn't produced logs in 30 minutes"
+
+  - name: security_alerts
+    interval: 1m
+    rules:
+      # Alert on authentication failures
+      - alert: AuthenticationFailures
+        expr: |
+          sum by (container) (
+            count_over_time({job="docker"} |~ "(?i)(authentication failed|login failed|unauthorized|invalid password|access denied)" [5m])
+          ) > 5
+        for: 2m
+        labels:
+          severity: warning
+          category: security
+        annotations:
+          summary: "Auth failures in {{ $labels.container }}"
+          description: "Container {{ $labels.container }} has {{ $value }} authentication failures in 5 minutes"

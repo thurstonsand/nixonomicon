@@ -4,6 +4,8 @@ in {
   home = {
     packages = with pkgs; [
       ack
+      ast-grep
+      cf-terraforming
       deno
       # does not have all encoders enabled -- homebrew version does
       # ffmpeg-full
@@ -18,6 +20,7 @@ in {
       nix-inspect
       nix-prefetch-github
       nodejs
+      opentofu
       prettyping
       rclone
       # in case repo has been stuck in locked state:
@@ -54,7 +57,7 @@ in {
 
     direnv = {
       enable = true;
-      enableZshIntegration = true;
+      enableZshIntegration = false; # Manually integrated with caching for performance
       nix-direnv.enable = true;
       config.global = {
         # Make direnv messages less verbose
@@ -71,7 +74,7 @@ in {
 
     fzf = {
       enable = true;
-      enableZshIntegration = true;
+      enableZshIntegration = false; # Manually integrated with caching for performance
     };
 
     git = {
@@ -93,7 +96,7 @@ in {
         };
         alias.pushf = "push --force-with-lease";
         color.ui = "auto";
-        credential.helper = "/usr/local/share/gcm-core/git-credential-manager";
+        credential.helper = "${pkgs.git-credential-manager}/bin/git-credential-manager";
         gpg.format = "ssh";
         init.defaultBranch = "main";
         pull.rebase = true;
@@ -111,6 +114,11 @@ in {
         editor = "code --wait";
         git_protocol = "ssh";
       };
+    };
+
+    go = {
+      enable = true;
+      telemetry.mode = "local";
     };
 
     htop.enable = true;
@@ -206,6 +214,8 @@ in {
 
     nix-index = {
       enable = true;
+      enableBashIntegration = false;
+      enableZshIntegration = false; # Disabled for performance
     };
     nix-index-database = {
       comma.enable = true;
@@ -266,11 +276,8 @@ in {
           hostname = "truenas.thurstons.house";
           user = "admin";
           forwardAgent = true;
-          setEnv = {
-            # not needed if tic is run:
-            # https://ghostty.org/docs/help/terminfo#copy-ghostty's-terminfo-to-a-remote-machine
-            # TERM = "xterm-256color";
-          };
+          # TERM override not needed if tic is run:
+          # https://ghostty.org/docs/help/terminfo#copy-ghostty's-terminfo-to-a-remote-machine
         };
 
         "truenas-dev" = {
@@ -296,6 +303,7 @@ in {
 
     starship = {
       enable = true;
+      enableZshIntegration = false; # Manually integrated with caching for performance
       settings = {
         hostname.disabled = true;
         username.disabled = true;
@@ -314,6 +322,7 @@ in {
           impure_msg = "dev";
           style = "bold blue";
         };
+        gcloud.disabled = true;
       };
     };
 
@@ -327,18 +336,25 @@ in {
       extraConfig = builtins.readFile ./dotfiles/.vimrc;
     };
 
-    # yt-dlp = {
-    #   enable = true;
-    #   settings = {
-    #     update = true;
-    #   };
-    # };
-
     zsh = {
       enable = true;
       autosuggestion.enable = true;
       autocd = true;
       enableCompletion = true;
+
+      # Optimize compinit - only rebuild completion cache once per day
+      # Uses zsh glob qualifiers for faster checking (no subprocess spawning)
+      completionInit = ''
+        autoload -Uz compinit
+        # Only regenerate .zcompdump if it's older than 24 hours
+        # The glob qualifier (mh+24) checks for files modified more than 24 hours ago
+        if [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
+          compinit
+        else
+          compinit -C  # Skip security check for faster startup
+        fi
+      '';
+
       syntaxHighlighting = {
         enable = true;
         highlighters = [
@@ -355,12 +371,49 @@ in {
         ignoreDups = true;
         ignoreSpace = true;
         share = true;
-        size = 1000;
+        size = 10000;
         save = 10000;
       };
 
       defaultKeymap = "emacs";
+
+      profileExtra = ''
+        # Cache directory for eval command outputs
+        ZSH_CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+        mkdir -p "$ZSH_CACHE_DIR"
+
+        # Caching function for eval commands
+        # Regenerates cache if: binary updated, cache missing, or args changed
+        _evalcache() {
+          local cmd=$1
+          shift
+          local cache_file="$ZSH_CACHE_DIR/''${cmd##*/}_init.zsh"
+          local binary=$(command -v "$cmd" 2>/dev/null)
+
+          # Regenerate if binary is newer, cache missing, or command changed
+          if [[ ! -f "$cache_file" ]] || \
+             [[ -n "$binary" && "$binary" -nt "$cache_file" ]] || \
+             [[ "$cmd $*" != "$(head -1 "$cache_file" 2>/dev/null | sed 's/^# //')" ]]; then
+            echo "# $cmd $*" > "$cache_file"
+            "$cmd" "$@" >> "$cache_file" 2>/dev/null
+            zcompile "$cache_file" 2>/dev/null || true
+          fi
+          source "$cache_file"
+        }
+      '';
+
       initContent = ''
+        # Initialize tools with caching
+        # Interactive-only tools
+        if [[ -o interactive ]]; then
+          _evalcache fzf --zsh
+          _evalcache zoxide init zsh --cmd cd
+          if [[ $TERM != "dumb" ]]; then
+            _evalcache starship init zsh
+          fi
+        fi
+        _evalcache direnv hook zsh
+
         # Extended glob operators
         setopt EXTENDED_GLOB       # treat #, ~, and ^ as part of patterns for filename generation
 
@@ -387,7 +440,7 @@ in {
 
     zoxide = {
       enable = true;
-      enableZshIntegration = true;
+      enableZshIntegration = false; # Manually integrated with caching for performance
       options = [
         "--cmd cd"
       ];

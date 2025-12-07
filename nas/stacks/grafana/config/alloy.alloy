@@ -1,0 +1,115 @@
+// Alloy Configuration for Docker Container Log Collection
+// Deploy to: /mnt/performance/docker/grafana/alloy/config.alloy
+
+// ============================================================
+// Step 1: Discover Docker containers
+// ============================================================
+discovery.docker "containers" {
+  host             = "unix:///var/run/docker.sock"
+  refresh_interval = "10s"
+}
+
+// ============================================================
+// Step 2: Relabel to extract useful metadata
+// ============================================================
+discovery.relabel "docker_logs" {
+  targets = discovery.docker.containers.targets
+
+  // Use container name as a label (strip leading slash)
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/(.*)"
+    target_label  = "container"
+  }
+
+  // Extract image name
+  rule {
+    source_labels = ["__meta_docker_container_image"]
+    target_label  = "image"
+  }
+
+  // Extract compose project if available
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_project"]
+    target_label  = "compose_project"
+  }
+
+  // Extract compose service if available
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    target_label  = "compose_service"
+  }
+}
+
+// ============================================================
+// Step 3: Collect logs from Docker containers
+// ============================================================
+loki.source.docker "docker_logs" {
+  host    = "unix:///var/run/docker.sock"
+  targets = discovery.relabel.docker_logs.output
+
+  labels = {
+    job = "docker",
+  }
+
+  relabel_rules    = discovery.relabel.docker_logs.rules
+  refresh_interval = "10s"
+
+  forward_to = [loki.process.docker_logs.receiver]
+}
+
+// ============================================================
+// Step 4: Process and enrich logs
+// ============================================================
+loki.process "docker_logs" {
+  // Try to parse JSON logs (many apps output JSON)
+  stage.json {
+    expressions = {
+      level   = "level",
+      msg     = "msg",
+      message = "message",
+      error   = "error",
+      err     = "err",
+    }
+  }
+
+  // Normalize log level to a standard label
+  stage.labels {
+    values = {
+      level = "",
+    }
+  }
+
+  // Add detected_level label based on log content patterns
+  stage.regex {
+    expression = "(?i)(?P<detected_level>error|warn|warning|info|debug|critical|fatal)"
+  }
+
+  stage.labels {
+    values = {
+      detected_level = "",
+    }
+  }
+
+  forward_to = [loki.write.loki.receiver]
+}
+
+// ============================================================
+// Step 5: Send logs to Loki
+// ============================================================
+loki.write "loki" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+
+  external_labels = {
+    host = "truenas",
+  }
+}
+
+// ============================================================
+// Alloy UI for debugging
+// ============================================================
+livedebugging {
+  enabled = true
+}

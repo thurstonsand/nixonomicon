@@ -11,7 +11,7 @@ in {
     sessionPath = [
       "$HOME/.npm-global/bin"
       "$HOME/.opencode/bin"
-      "$(/opt/homebrew/bin/brew --prefix rustup)/bin"
+      "/opt/homebrew/opt/rustup/bin"
     ];
     sessionVariables = {
       EDITOR = "code --wait";
@@ -93,11 +93,23 @@ in {
       extraConfig = ''IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"'';
     };
 
-    zsh.shellAliases = {
-      bd = "brew desc";
-      bh = "brew home";
-      opencode = "/Users/thurstonsand/.opencode/bin/opencode";
-      switch = "sudo darwin-rebuild switch --flake /Users/thurstonsand/Develop/nixonomicon";
+    zsh = {
+      shellAliases = {
+        bd = "brew desc";
+        bh = "brew home";
+        opencode = "/Users/thurstonsand/.opencode/bin/opencode";
+        switch = "sudo darwin-rebuild switch --flake /Users/thurstonsand/Develop/nixonomicon";
+      };
+
+      # mac-specific .zprofile goes after shared (mkAfter)
+      profileExtra = lib.mkAfter ''
+        _evalcache /opt/homebrew/bin/brew shellenv
+
+        # OrbStack shell integration
+        source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
+        export PATH="$PATH:$HOME/.local/bin"
+      '';
     };
   };
 }

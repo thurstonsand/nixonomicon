@@ -1,0 +1,52 @@
+# AlertManager Configuration
+# Deploy to: /mnt/performance/docker/grafana/alertmanager/config.yaml
+
+global:
+  resolve_timeout: 5m
+  # Uncomment and configure for Slack notifications:
+  # slack_api_url: 'https://hooks.slack.com/services/YOUR/WEBHOOK/URL'
+
+# Default route - all alerts go here unless matched by a sub-route
+route:
+  receiver: 'default'
+  group_by: ['alertname', 'container', 'compose_project']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+
+  routes:
+    # Critical alerts get faster notification
+    - match:
+        severity: critical
+      receiver: 'critical'
+      group_wait: 10s
+      repeat_interval: 1h
+
+# Receivers - configure your notification channels
+receivers:
+  - name: 'default'
+    # Webhook example - can be used with ntfy, Gotify, or custom endpoints
+    # webhook_configs:
+    #   - url: 'http://your-webhook-endpoint/alerts'
+    #     send_resolved: true
+
+  - name: 'critical'
+    # Slack example
+    # slack_configs:
+    #   - channel: '#alerts-critical'
+    #     title: '🚨 {{ .GroupLabels.alertname }}'
+    #     text: |
+    #       {{ range .Alerts }}
+    #       *Container:* {{ .Labels.container }}
+    #       *Summary:* {{ .Annotations.summary }}
+    #       *Description:* {{ .Annotations.description }}
+    #       {{ end }}
+    #     send_resolved: true
+
+# Inhibition rules - suppress lower severity alerts when higher ones are firing
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'container']

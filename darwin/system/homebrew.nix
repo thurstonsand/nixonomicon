@@ -13,9 +13,9 @@
 
     taps = [
       "domt4/autoupdate"
+      "nikitabobko/tap"
       "rfidresearchgroup/proxmark3"
       "sst/tap"
-      "nikitabobko/tap"
     ];
 
     # more up-to-date or available versions
@@ -53,6 +53,7 @@
       "fantastical"
       "ghostty"
       "google-chrome"
+      "gcloud-cli"
       # "google-drive" # Deprecated somehow?
       "iina"
       "legcord"
@@ -74,8 +75,9 @@
       "setapp"
       "slack"
       "steam"
-      "tabtab"
+      # "tabtab"
       "visual-studio-code"
+      "visual-studio-code@insiders"
       "warp"
       "wifiman"
       "windsurf"
@@ -83,7 +85,8 @@
       "zoom"
     ];
 
-    validateMasApps = true;
+    # TODO: Re-enable validateMasApps once the sudo uid issue is resolved
+    validateMasApps = false;
     # NOTE: apps removed from this list are not uninstalled
     # a limitation of Homebrew Bundle
     masApps = {

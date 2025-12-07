@@ -1,0 +1,81 @@
+services:
+  loki:
+    image: grafana/loki:3.4.1
+    container_name: loki
+    restart: unless-stopped
+    user: "950:544"
+    networks:
+      external:
+        ipv4_address: 192.168.5.240
+    ports:
+      - "3100:3100"
+    volumes:
+      - /mnt/performance/docker/grafana/loki/config.yaml:/etc/loki/local-config.yaml:ro
+      - /mnt/performance/docker/grafana/loki/rules:/loki/rules
+      - /mnt/performance/docker/grafana/loki/data:/loki
+      - /etc/localtime:/etc/localtime:ro
+    command: -config.file=/etc/loki/local-config.yaml
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3100/ready"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy
+    restart: unless-stopped
+    user: "950:544"
+    group_add:
+      - "999" # docker group - grants access to /var/run/docker.sock
+    networks:
+      external:
+        ipv4_address: 192.168.5.241
+    ports:
+      - "12345:12345"
+    volumes:
+      - /mnt/performance/docker/grafana/alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - /mnt/performance/docker/grafana/alloy/data:/var/lib/alloy
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /etc/localtime:/etc/localtime:ro
+    command:
+      - run
+      - /etc/alloy/config.alloy
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+    depends_on:
+      loki:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:12345/-/ready"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    restart: unless-stopped
+    user: "950:544"
+    networks:
+      external:
+        ipv4_address: 192.168.5.242
+    ports:
+      - "9093:9093"
+    volumes:
+      - /mnt/performance/docker/grafana/alertmanager/config.yaml:/etc/alertmanager/alertmanager.yml:ro
+      - /mnt/performance/docker/grafana/alertmanager/data:/alertmanager
+      - /etc/localtime:/etc/localtime:ro
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:9093/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  external:
+    external: true
