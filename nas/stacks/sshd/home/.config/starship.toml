@@ -1,5 +1,23 @@
+[directory]
+before_repo_root_style = "dimmed cyan"
+format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style) "
+repo_root_style = "bold yellow"
+style = "bold yellow"
+truncate_to_repo = false
+truncation_length = 0
+
+[gcloud]
+disabled = true
+
 [hostname]
 disabled = true
+
+[nix_shell]
+format = "env [$symbol$state]($style) "
+impure_msg = "dev"
+pure_msg = "pure"
+style = "bold blue"
+symbol = "❄️ "
 
 [username]
 disabled = true

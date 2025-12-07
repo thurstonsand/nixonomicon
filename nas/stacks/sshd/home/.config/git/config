@@ -1,17 +1,14 @@
+[alias]
+	pushf = "push --force-with-lease"
+
 [color]
 	ui = "auto"
 
 [commit]
 	gpgSign = true
 
-[credential]
-	helper = "/usr/local/share/gcm-core/git-credential-manager"
-
-[credential "https://gist.github.com"]
-	helper = "/nix/store/f0ixb6s2s800c4yi89dnp2gyrsi24yz1-gh-2.74.0/bin/gh auth git-credential"
-
-[credential "https://github.com"]
-	helper = "/nix/store/f0ixb6s2s800c4yi89dnp2gyrsi24yz1-gh-2.74.0/bin/gh auth git-credential"
+[diff "lockb"]
+	binary = true
 
 [filter "lfs"]
 	clean = "git-lfs clean -- %f"
@@ -22,8 +19,6 @@
 [gpg]
 	format = "ssh"
 
-[gpg "openpgp"]
-
 [init]
 	defaultBranch = "main"
 
@@ -33,6 +28,9 @@
 [push]
 	autoSetupRemote = true
 	default = "simple"
+
+[rebase]
+	autoStash = true
 
 [tag]
 	gpgSign = true

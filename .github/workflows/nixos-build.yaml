@@ -9,6 +9,7 @@ on:
       - 'flake.nix'
       - 'flake.lock'
       - '.github/workflows/nixos-build.yaml'
+      - 'scripts/extract-portable-configs.py'
   pull_request:
     branches: [ "main" ]
     paths:
@@ -17,6 +18,7 @@ on:
       - 'flake.nix'
       - 'flake.lock'
       - '.github/workflows/nixos-build.yaml'
+      - 'scripts/extract-portable-configs.py'
 
 jobs:
   build-nixos:
@@ -45,46 +47,11 @@ jobs:
       - name: Extract portable configs
         id: extract-configs
         run: |
-          HOME_DIR=nas/stacks/sshd/home
-          # Create directory structure
-          mkdir -p $HOME_DIR/.config/git
-
-          # Extract config files and remove gpg program line
-          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/config".text' | grep -v "program = " > $HOME_DIR/.config/git/config
-          nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.config/git/ignore".text' > $HOME_DIR/.config/git/ignore
-
-          # Extract zsh config
-          {
-            echo typeset -U path cdpath fpath manpath
-            echo "autoload -U compinit && compinit"
-            echo
-            echo "# History Settings"
-            echo "HISTSIZE=$(nix eval '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.programs.zsh.history.size')"
-            echo "SAVEHIST=$(nix eval '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.programs.zsh.history.save')"
-            echo "HISTFILE=$(nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.programs.zsh.history.path')"
-            echo
-            echo "# Shell options and initialization"
-            nix eval --raw '.#nixosConfigurations.knownapps.config.home-manager.users.thurstonsand.home.file."/home/thurstonsand/.zshrc".text' | grep -E '^[[:space:]]*(set|unset)opt' | grep -v '/nix/store\|/etc/profiles'
-            echo
-            echo "# Program Inits"
-            echo 'eval "$(fzf --zsh)"'
-            echo 'eval "$(starship init zsh)"'
-            echo 'eval "$(zoxide init zsh --cmd j)"'
-            echo
-            echo "# aliases"
-            nix eval --raw --impure --expr '
-              let
-                flake = builtins.getFlake (toString ./.);
-                nixpkgs = flake.inputs.nixpkgs;
-                config = flake.nixosConfigurations.knownapps.config;
-                shellAliases = builtins.removeAttrs config.home-manager.users.thurstonsand.programs.zsh.shellAliases ["switch"];
-              in
-                builtins.concatStringsSep "\n"
-                  (nixpkgs.lib.mapAttrsToList (key: value: "alias -- ${key}=\"${value}\"") shellAliases)
-            '
-          } > $HOME_DIR/.zshrc
+          # Run the extraction script
+          python3 ./scripts/extract-portable-configs.py
 
           # Check if there are any changes
+          HOME_DIR=nas/stacks/sshd/home
           if [[ -n "$(git status --porcelain $HOME_DIR)" ]]; then
             echo "changes=true" >> $GITHUB_OUTPUT
           else
@@ -111,7 +78,7 @@ jobs:
           commit-message: "chore: update portable configurations"
           title: "Update portable configurations"
           body: |
-            This PR updates the portable configuration files in `nas/home/`.
+            This PR updates the portable configuration files in `nas/stacks/sshd/home/`.
 
             These changes were automatically generated from the latest NixOS configuration.
           branch: update-portable-configs

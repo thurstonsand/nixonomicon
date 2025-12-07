@@ -173,6 +173,9 @@
           settings.hooks = {
             alejandra.enable = true;
             terraform-format.enable = true;
+            ruff.enable = true;
+            ruff-format.enable = true;
+            pyright.enable = true;
           };
         };
       };
