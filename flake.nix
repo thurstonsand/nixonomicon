@@ -172,6 +172,7 @@
           check.enable = true;
           settings.hooks = {
             alejandra.enable = true;
+            terraform-format.enable = true;
           };
         };
       };

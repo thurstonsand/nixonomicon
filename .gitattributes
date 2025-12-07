@@ -3,4 +3,6 @@ cloudflare-pages/tesla/src/private-key.pem filter=git-crypt diff=git-crypt
 common/dotfiles/.config/rclone/rclone.conf filter=git-crypt diff=git-crypt
 common/platform_dependent_dotfiles/storj-uplink/access.json filter=git-crypt diff=git-crypt
 nas/containers/secrets.json filter=git-crypt diff=git-crypt linguist-generated=true
-terraform/cloudflare/secrets/cloudflare.json filter=git-crypt diff=git-crypt
+terraform/cloudflare/secrets.auto.tfvars filter=git-crypt diff=git-crypt
+terraform/**/*.tfstate filter=git-crypt diff=git-crypt
+

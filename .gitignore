@@ -3,3 +3,8 @@
 result
 /cloudflare-pages/**/public
 *.code-workspace
+
+# Terraform
+terraform/**/.terraform/
+terraform/**/*.tfstate.backup
+terraform/**/*.tfstate.lock.info
