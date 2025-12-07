@@ -3,6 +3,7 @@
 ## Repository Overview
 
 This is a Nix flake-based configuration repository that manages system configurations across multiple platforms:
+
 - macOS systems via nix-darwin
 - NixOS systems
 - User environments via home-manager
@@ -12,26 +13,33 @@ This is a Nix flake-based configuration repository that manages system configura
 ## Essential Commands
 
 ### Apply Configuration Changes
+
 ```bash
 switch
 ```
+
 This alias runs `sudo darwin-rebuild switch --flake /Users/thurstonsand/Develop/nixonomicon` on macOS.
 
 ### Development Environment
+
 ```bash
 nix develop
 ```
+
 Enters a development shell with pre-commit hooks and formatting tools.
 
 ### Format Nix Code
+
 ```bash
 nix fmt
 ```
+
 Uses alejandra formatter. Pre-commit hooks run this automatically.
 
 ## Architecture Overview
 
 ### Directory Structure
+
 - `/flake.nix` - Main entry point defining all system configurations
 - `/common/` - Shared configurations across all systems
 - `/darwin/` - macOS-specific configurations
@@ -42,11 +50,17 @@ Uses alejandra formatter. Pre-commit hooks run this automatically.
   - `/nas/stacks/` - Docker Compose stacks
 - `/terraform/` - Infrastructure as Code (Cloudflare)
 
+### Cloudflare / Terraform
+
+- Uses OpenTofu (`tofu`) not Terraform
+- Apply changes: `tofu apply` from `/terraform/cloudflare/`
+
 ### Key Architectural Patterns
 
 1. **Modular Configuration**: Each system (darwin, nas, steamdeck, truenas-shell) has its own module with shared common configurations.
 
 2. **Flake Inputs**: Dependencies are managed through flake inputs, including:
+
    - nixpkgs (unstable channel)
    - home-manager
    - nix-darwin
@@ -59,6 +73,7 @@ Uses alejandra formatter. Pre-commit hooks run this automatically.
 ## Development Guidelines
 
 When working in this repository:
+
 1. Be an expert in Nix, nix-darwin, home-manager, and Terraform
 2. Use latest stable versions and techniques
 3. Git stage changes before running `switch` - new/moved files must be staged or Nix won't see them

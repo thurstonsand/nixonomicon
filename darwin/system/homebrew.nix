@@ -46,6 +46,7 @@
       # "choosy"
       "claude"
       "clay"
+      "cloudflare-warp"
       "contexts"
       "cursor"
       "elgato-camera-hub"
