@@ -1,0 +1,48 @@
+name: DDNS Tofu Apply
+
+on:
+  repository_dispatch:
+    types: [ddns-ip-changed]
+  workflow_dispatch: # Manual trigger for testing
+  schedule:
+    - cron: "0 6 * * *" # Daily at 6 AM UTC as safety net
+
+concurrency:
+  group: cloudflare-tofu-apply
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform/cloudflare
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Setup git-crypt
+        run: |
+          nix profile install nixpkgs#git-crypt
+          echo "${{ secrets.GIT_CRYPT_KEY_BASE64 }}" | base64 --decode > git-crypt.key
+          git-crypt unlock git-crypt.key
+          rm git-crypt.key
+
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
+
+      - name: Tofu Init
+        run: tofu init
+
+      - name: Tofu Apply
+        run: |
+          tofu apply -auto-approve \
+            -target=cloudflare_record.storj \
+            -target=cloudflare_zero_trust_access_policy.home_network_bypass
+
+      - name: Cleanup git-crypt
+        if: always()
+        run: rm -rf .git/git-crypt

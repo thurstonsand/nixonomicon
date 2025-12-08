@@ -22,13 +22,14 @@ resource "cloudflare_zero_trust_access_application" "truenas_app" {
 }
 
 # Bypass Access for home network (by public IP)
+# IP is derived from the storj DNS record, which ddclient keeps updated
 resource "cloudflare_zero_trust_access_policy" "home_network_bypass" {
   account_id = local.account_id
   name       = "Home Network Bypass"
   decision   = "bypass"
 
   include {
-    ip = [var.home_public_ip]
+    ip = [cloudflare_record.storj.content]
   }
 
   lifecycle {

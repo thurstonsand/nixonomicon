@@ -4,9 +4,13 @@ resource "cloudflare_record" "storj" {
   zone_id = var.zone_id
   name    = "storj"
   type    = "A"
-  content = "108.207.130.230"
+  content = "0.0.0.0" # placeholder; ddclient owns the actual IP
   proxied = false
   ttl     = 1
+
+  lifecycle {
+    ignore_changes = [content] # ddclient dynamically updates this via Cloudflare API
+  }
 }
 
 resource "cloudflare_record" "acme_challenge_ha" {

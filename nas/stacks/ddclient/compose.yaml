@@ -5,8 +5,11 @@ services:
     volumes:
       - /mnt/performance/docker/ddclient/config:/config
       - /etc/localtime:/etc/localtime:ro
+      - ./ddclient.conf:/config/ddclient.conf
+      - ./trigger-tofu-apply.sh:/config/trigger-tofu-apply.sh
     environment:
       - PUID=950
       - PGID=544
       - TZ=US/Eastern
+      - GITHUB_PAT=${GITHUB_PAT}
     restart: unless-stopped

@@ -10,8 +10,4 @@ variable "api_token" {
   sensitive   = true
 }
 
-variable "home_public_ip" {
-  description = "Home network public IP for Access bypass policy"
-  type        = string
-  sensitive   = true
-}
+
