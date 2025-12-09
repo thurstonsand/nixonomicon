@@ -29,7 +29,7 @@ resource "cloudflare_zero_trust_access_policy" "home_network_bypass" {
   decision   = "bypass"
 
   include {
-    ip = [cloudflare_record.storj.content]
+    ip = [local.home_ip, var.parent_home_ip]
   }
 
   lifecycle {

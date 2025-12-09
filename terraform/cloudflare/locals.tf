@@ -6,6 +6,8 @@ locals {
 
   tunnel_cname_target = "${cloudflare_tunnel.home.id}.cfargotunnel.com"
 
+  home_ip = sensitive(cloudflare_record.storj.content)
+
   # Apps exposed via Cloudflare Tunnel - single source of truth for DNS + tunnel ingress
   tunnel_apps = [
     { host = "overseerr", service = "http://192.168.5.227:5055" },

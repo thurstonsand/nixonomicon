@@ -10,4 +10,9 @@ variable "api_token" {
   sensitive   = true
 }
 
+variable "parent_home_ip" {
+  description = "IP address to allow through Zero Trust"
+  type        = string
+  sensitive   = true
+}
 
