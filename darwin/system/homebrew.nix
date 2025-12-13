@@ -42,6 +42,7 @@
       "aqua-voice"
       "bazecor"
       "beeper"
+      "bloom"
       "chatgpt"
       # "choosy"
       "claude"

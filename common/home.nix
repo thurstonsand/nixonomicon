@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  npxAlias = pkg: "npx ${pkg}";
+  npxAlias = pkg: "npx -y ${pkg}";
 in {
   home = {
     packages = with pkgs; [
@@ -36,6 +36,11 @@ in {
   xdg.configFile = {
     "rclone" = {
       source = ./dotfiles/.config/rclone;
+      recursive = true;
+      force = true;
+    };
+    "lazygit" = {
+      source = ./dotfiles/.config/lazygit;
       recursive = true;
       force = true;
     };
@@ -432,6 +437,7 @@ in {
       shellAliases = {
         ping = "prettyping";
         top = "htop";
+        lg = "lazygit";
         codex = npxAlias "@openai/codex";
         gemini = npxAlias "@google/gemini-cli";
         openskills = npxAlias "openskills";

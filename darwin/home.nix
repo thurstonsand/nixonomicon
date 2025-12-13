@@ -4,8 +4,19 @@
   ...
 }: let
   username = "thurstonsand";
+
+  # Delta wrapper that auto-detects macOS light/dark mode
+  # This replaces the delta binary transparently
+  delta = pkgs.writeShellScriptBin "delta" ''
+    if defaults read -g AppleInterfaceStyle &>/dev/null; then
+      exec ${pkgs.delta}/bin/delta --dark "$@"
+    else
+      exec ${pkgs.delta}/bin/delta --light "$@"
+    fi
+  '';
 in {
   home = {
+    packages = [delta];
     username = username;
     homeDirectory = "/Users/${username}";
     sessionPath = [
@@ -104,6 +115,10 @@ in {
       # mac-specific .zprofile goes after shared (mkAfter)
       profileExtra = lib.mkAfter ''
         _evalcache /opt/homebrew/bin/brew shellenv
+
+        # Prepend nix system path so it takes precedence over homebrew
+        typeset -U path
+        path=("/run/current-system/sw/bin" $path)
 
         # OrbStack shell integration
         source ~/.orbstack/shell/init.zsh 2>/dev/null || :

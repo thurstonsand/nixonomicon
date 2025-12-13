@@ -41,6 +41,10 @@
     pkgs.zsh
   ];
 
+  environment.variables = {
+    XDG_CONFIG_HOME = "$HOME/.config";
+  };
+
   # enable direnv/nix develop envs
   environment.systemPackages = with pkgs; [
     nix-direnv
