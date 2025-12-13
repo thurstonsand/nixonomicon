@@ -73,15 +73,16 @@ bindkey "^[[3~" delete-char
 # bindkey "^[[3;9~" kill-line
 bindkey "^U" backward-kill-line
 
-alias -- codex='npx @openai/codex'
+alias -- codex='npx -y @openai/codex'
 alias -- eza='eza --icons auto --git'
-alias -- gemini='npx @google/gemini-cli'
+alias -- gemini='npx -y @google/gemini-cli'
 alias -- la='eza -a'
+alias -- lg=lazygit
 alias -- ll='eza -l'
 alias -- lla='eza -la'
 alias -- ls=eza
 alias -- lt='eza --tree'
-alias -- openskills='npx openskills'
+alias -- openskills='npx -y openskills'
 alias -- ping=prettyping
 alias -- top=htop
 # Syntax highlighting (install zsh-syntax-highlighting package)
