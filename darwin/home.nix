@@ -16,7 +16,7 @@
   '';
 in {
   home = {
-    packages = [delta];
+    packages = with pkgs; [delta just];
     username = username;
     homeDirectory = "/Users/${username}";
     sessionPath = [

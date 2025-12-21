@@ -438,9 +438,9 @@ in {
         ping = "prettyping";
         top = "htop";
         lg = "lazygit";
-        codex = npxAlias "@openai/codex";
-        gemini = npxAlias "@google/gemini-cli";
-        openskills = npxAlias "openskills";
+        # codex = npxAlias "@openai/codex";
+        # gemini = npxAlias "@google/gemini-cli";
+        # openskills = npxAlias "openskills";
       };
     };
 

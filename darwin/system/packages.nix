@@ -29,9 +29,9 @@
           # code-insiders
           # code
           # cursor
-          # surf
+          # surf/windsurf
           # zed
-          editor = "windsurf";
+          editor = "code-insiders";
         in ''
           mkdir -p $out/bin
           ln -s /opt/homebrew/bin/${editor} $out/bin/code

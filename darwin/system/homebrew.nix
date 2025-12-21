@@ -16,11 +16,13 @@
       "nikitabobko/tap"
       "rfidresearchgroup/proxmark3"
       "sst/tap"
+      "steipete/tap"
     ];
 
     # more up-to-date or available versions
     brews = [
       "cliproxyapi"
+      "gemini-cli"
       "llm"
       "ffmpeg"
       {
@@ -48,6 +50,8 @@
       "claude"
       "clay"
       "cloudflare-warp"
+      "codex"
+      "codexbar"
       "contexts"
       "cursor"
       "elgato-camera-hub"
@@ -110,7 +114,7 @@
       "Raycast Companion" = 6738274497;
       "Remind Me Faster" = 985555908;
       # "Save to Reader" = 1640236961;
-      "Spokenly: Voice to Text AI" = 6740315592;
+      # "Spokenly: Voice to Text AI" = 6740315592;
       "SponsorBlock for Safari" = 1573461917;
       "Tailscale" = 1475387142;
       "Telegram" = 747648890;
@@ -118,7 +122,7 @@
       "Uplock" = 6469049274;
       "WhatsApp Messenger" = 310633997;
       "Wipr" = 1662217862; # actually Wipr 2
-      # "Xcode" = 497799835;
+      "Xcode" = 497799835;
     };
   };
 }
